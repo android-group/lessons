@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Проверка паспорта на ФМС</string>
+    <string name="check">Проверить</string>
+    <string name="seria">Серия</string>
+    <string name="number">Номер</string>
+    <string name="captcha">captcha</string>
+</resources>
