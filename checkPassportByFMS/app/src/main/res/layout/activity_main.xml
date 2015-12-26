@@ -10,22 +10,6 @@
     tools:context="com.joinlang.yury.checkpassportbyfms.MainActivity">
 
     <TextView
-        android:id="@+id/numberTextView"
-        android:layout_width="206dp"
-        android:layout_height="84dp"
-        android:text="@string/number"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_gravity="right|top" />
-
-    <EditText
-        android:id="@+id/numberEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_gravity="right|top" />
-
-    <TextView
         android:id="@+id/seriesTextView"
         android:layout_width="120dp"
         android:layout_height="83dp"
@@ -33,17 +17,28 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_gravity="left|top" />
 
+    <TextView
+        android:id="@+id/numberTextView"
+        android:layout_width="160dp"
+        android:layout_height="84dp"
+        android:text="@string/number"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_gravity="right|top" />
+
     <EditText
         android:id="@+id/seriesEditText"
-        android:layout_width="123dp"
+        android:layout_width="126dp"
         android:layout_height="70dp"
         android:ems="10"
         android:inputType="number"
-        android:layout_gravity="left|top" />
+        android:layout_gravity="left|top"
+        android:maxLength="4"
+        android:focusableInTouchMode="true"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="351dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="@string/check"
         android:layout_gravity="center"
@@ -51,7 +46,7 @@
 
     <ImageView
         android:id="@+id/captcha"
-        android:layout_width="348dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:contentDescription="@string/captcha"
         android:layout_gravity="center_horizontal|top"
@@ -59,17 +54,31 @@
         android:layout_marginTop="80dp" />
 
     <TextView
-        android:layout_width="352dp"
+        android:layout_width="match_parent"
         android:layout_height="128dp"
         android:id="@+id/result"
         android:layout_gravity="center_horizontal|bottom|left|right"
-        android:clickable="false" />
+        android:clickable="false"
+        android:textSize="30sp" />
 
     <EditText
-        android:layout_width="357dp"
-        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
         android:id="@+id/confirmationCaptcha"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="190dp" />
+        android:layout_gravity="center|left"
+        android:maxLength="6"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/numberEditText"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_gravity="right|top"
+        android:maxLength="6"
+        android:textSize="30sp" />
 
 </FrameLayout>

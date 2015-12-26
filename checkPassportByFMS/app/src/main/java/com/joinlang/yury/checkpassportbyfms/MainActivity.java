@@ -1,11 +1,11 @@
 package com.joinlang.yury.checkpassportbyfms;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,24 +14,26 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String SERVICE_CAPTCHA = "http://services.fms.gov.ru/services/captcha.jpg";
+    private static final String SMEV_URL = "http://services.fms.gov.ru/info-service.htm?sid=2000&form_name=form&DOC_SERIE=%s&DOC_NUMBER=%s&captcha-input=%s";
+
+    private static final String unsuccessful_response = "ФМС не дал ответ по вашему запросу.";
 
     ImageView imageView;
     EditText number;
     EditText series;
     EditText confirmationCaptcha;
     Button submitButton;
-
     TextView result;
+
+    private String cookies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,98 +41,114 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView = (ImageView) findViewById(R.id.captcha);
+        number = (EditText) findViewById(R.id.numberEditText);
+        series = (EditText) findViewById(R.id.seriesEditText);
+        submitButton = (Button) findViewById(R.id.submit_button);
+        result = (TextView) findViewById(R.id.result);
+        confirmationCaptcha = (EditText) findViewById(R.id.confirmationCaptcha);
+
+        updateCaptcha();
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String smevResponse = requestToSMEV(series.getText().toString(), number.getText().toString(), confirmationCaptcha.getText().toString());
+                    result.setText(smevResponse);
+
+                    if (!unsuccessful_response.equals(smevResponse)) {
+                        number.setText("");
+                        series.setText("");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    updateCaptcha();
+                }
+            }
+        });
+    }
+
+    private void updateCaptcha() {
+        confirmationCaptcha.setText("");
+
         try {
             imageView.setImageBitmap(new RetrieveCaptchaTask().execute().get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
-        number = (EditText) findViewById(R.id.numberEditText);
-        series = (EditText) findViewById(R.id.seriesEditText);
-
-        submitButton = (Button) findViewById(R.id.submit_button);
-        result = (TextView) findViewById(R.id.result);
-
-        confirmationCaptcha = (EditText) findViewById(R.id.confirmationCaptcha);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result.setText(requestToSMEV(series.getText().toString(), number.getText().toString(), confirmationCaptcha.getText().toString()));
-            }
-        });
     }
 
-    private String requestToSMEV(String series, String number, String captcha) {
+    private String requestToSMEV(String series, String number, String captcha) throws Exception {
         if (series == null || series.isEmpty() ||
                 number == null || number.isEmpty()) {
             return "Введены не корректные данные";
         }
-        //http://services.fms.gov.ru/info-service.htm?sid=2000?&form_name=form&PASSPORT_SER= $PASSPORT_SER&PASSPORT_NUM=$PASSPORT_NUM&captcha-input=$captcha"
 
-        String url = "http://services.fms.gov.ru/info-service.htm?sid=2000?&form_name=form&PASSPORT_SER= $%s&PASSPORT_NUM=$%s&captcha-input=$%s";
-
-        try {
-            HttpURLConnection con = (HttpURLConnection) new URL(String.format(url, series, number, captcha)).openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // refresh
-        getCaptchaDrawable();
-
-        /*// optional default is GET
-        con.setRequestMethod("GET");
-
-        //add request header
-        con.setRequestProperty("User-Agent", "Request");
-
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        //print result
-        System.out.println(response.toString());*/
-
-        return "O.K.";
-    }
-
-    private Bitmap getCaptchaDrawable() {
-        InputStream is = null;
-        try {
-            is = (InputStream) (new URL(SERVICE_CAPTCHA)).getContent();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ((BitmapDrawable) Drawable.createFromStream(is, "profile_picture")).getBitmap();
+        return new RetrieveSmevTask().execute(series, number, captcha).get();
     }
 
     class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
 
-        private Exception exception;
-
         protected Bitmap doInBackground(String... urls) {
-            InputStream is = null;
+            HttpURLConnection connection = null;
             try {
-                is = (InputStream) (new URL(SERVICE_CAPTCHA)).getContent();
+                connection = (HttpURLConnection) new URL(SERVICE_CAPTCHA).openConnection();
+                connection.connect();
+
+                if (connection.getResponseCode() == 200) {
+                    cookies = "";
+                    for (String item : connection.getHeaderFields().get("Set-Cookie")) {
+                        cookies += item.substring(0, item.indexOf(";") + 1);
+                    }
+
+                    return BitmapFactory.decodeStream(connection.getInputStream());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
-            return ((BitmapDrawable) Drawable.createFromStream(is, "profile_picture")).getBitmap();
+            return null;
         }
+    }
 
-        protected void onPostExecute(Bitmap feed) {
+    class RetrieveSmevTask extends AsyncTask<String, Void, String> {
 
+        protected String doInBackground(String... urls) {
+            String url = String.format(SMEV_URL, urls[0], urls[1], urls[2]);
+
+            try {
+                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+
+                connection.setRequestProperty("Cookie", cookies);
+
+                connection.setInstanceFollowRedirects(true);
+                connection.setRequestMethod("POST");
+                connection.setDoOutput(true);
+
+                connection.connect();
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    if (inputLine.contains("По Вашему запросу о действительности паспорта")) {
+                        in.close();
+                        Log.v("ФМС",inputLine);
+                        return inputLine.substring(inputLine.lastIndexOf("\"") + 7, inputLine.lastIndexOf("<"));
+                    }
+                }
+                in.close();
+                return unsuccessful_response;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
         }
     }
 }
