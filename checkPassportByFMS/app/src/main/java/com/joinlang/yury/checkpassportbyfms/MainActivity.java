@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView captchaImageView;
     private EditText numberEditText;
 
-    EditText.OnEditorActionListener seriesOnEditorActionListener = new EditText.OnEditorActionListener() {
+    private final EditText.OnEditorActionListener seriesOnEditorActionListener = new EditText.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private NetworkInfo activeNetwork;
     private String cookies;
 
-    private TextWatcher captchaTextWatcher = new TextWatcher() {
+    private final TextWatcher captchaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    private TextWatcher seriaTextWatcher = new TextWatcher() {
+    private final TextWatcher seriaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    private TextWatcher numberTextWatcher = new TextWatcher() {
+    private final TextWatcher numberTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-    private View.OnClickListener submitOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener submitOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String seriesStr = seriesEditText.getText().toString();
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    EditText.OnEditorActionListener confirmationCaptchaOnEditorActionListener = new EditText.OnEditorActionListener() {
+    private final EditText.OnEditorActionListener confirmationCaptchaOnEditorActionListener = new EditText.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE ||
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    private String UNKNOWN_HOST_EXCEPTION_MSG = "Ошибка при обращении к сервису ФМС";
+    private static final String UNKNOWN_HOST_EXCEPTION_MSG = "Ошибка при обращении к сервису ФМС";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isConnected() {
+    private boolean isConnected() {
         if (activeNetwork == null) {
             ConnectivityManager cm =
                     (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
+    private class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
 
         protected Bitmap doInBackground(String... urls) {
             HttpURLConnection connection = null;
