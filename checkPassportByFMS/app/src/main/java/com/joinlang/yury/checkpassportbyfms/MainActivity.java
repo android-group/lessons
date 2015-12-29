@@ -3,11 +3,14 @@ package com.joinlang.yury.checkpassportbyfms;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,34 +19,66 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String SERVICE_CAPTCHA = "http://services.fms.gov.ru/services/captcha.jpg";
     private static final String SMEV_URL = "http://services.fms.gov.ru/info-service.htm?sid=2000&form_name=form&DOC_SERIE=%s&DOC_NUMBER=%s&captcha-input=%s";
 
-    private static final String unsuccessful_response = "ФМС не дал ответ по вашему запросу.";
+    private static final String UNSUCCESSFUL_RESPONSE = "ФМС не дал ответ по вашему запросу.";
+    private static final String TAG = "MainActivity";
+    private static final String VALIDATION_ERROR_MSG = "Введены не корректные данные";
+    private static final String EMPTY_RESULT_MSG = "";
+    private ImageView captchaImageView;
+    private EditText numberEditText;
 
-    private ImageView imageView;
-    private EditText number;
-    private EditText series;
-    private EditText confirmationCaptcha;
-    private Button submitButton;
-    private TextView result;
+    EditText.OnEditorActionListener seriesOnEditorActionListener = new EditText.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                numberEditText.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    };
 
+    private TextView numberTextView;
+    private EditText seriesEditText;
+    private TextView seriesLabel;
+    private TextView captchaTextView;
+    private EditText captchaEditText;
+    private TextView resultTextView;
     private NetworkInfo activeNetwork;
-
     private String cookies;
 
+    private TextWatcher captchaTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence text, int start, int before, int count) {
+            if (text.length() != 0) {
+                captchaTextView.setVisibility(View.VISIBLE);
+            } else {
+                captchaTextView.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
     private TextWatcher seriaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -52,8 +87,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence text, int start, int before, int count) {
-            if (text.length() == 4) {
-                number.requestFocus();
+            int length = start + count - before;
+            if (text.length() != 0) {
+                seriesLabel.setVisibility(View.VISIBLE);
+            } else {
+                seriesLabel.setVisibility(View.INVISIBLE);
+            }
+            if (length == 4) {
+                numberEditText.requestFocus();
             }
         }
 
@@ -62,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
     private TextWatcher numberTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,8 +111,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence text, int start, int before, int count) {
-            if (text.length() == 6) {
-                confirmationCaptcha.requestFocus();
+            int length = start + count - before;
+            if (text.length() != 0) {
+                numberTextView.setVisibility(View.VISIBLE);
+            } else {
+                numberTextView.setVisibility(View.INVISIBLE);
+            }
+            if (length == 6) {
+                captchaEditText.requestFocus();
             }
         }
 
@@ -81,31 +127,67 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
-
     private View.OnClickListener submitOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            try {
-                String smevResponse = requestToSMEV(series.getText().toString(), number.getText().toString(), confirmationCaptcha.getText().toString());
-                result.setText(smevResponse);
+            String seriesStr = seriesEditText.getText().toString();
+            String numberStr = numberEditText.getText().toString();
+            String captchaStr = captchaEditText.getText().toString();
 
-                if (!unsuccessful_response.equals(smevResponse)) {
-                    series.setText("");
-                    number.setText("");
+            if (seriesStr.length() == 0 || numberStr.length() == 0 || captchaStr.length() == 0) {
+                resultTextView.setText(EMPTY_RESULT_MSG);
+                Toast.makeText(getApplicationContext(), VALIDATION_ERROR_MSG, Toast.LENGTH_LONG).show();
+            } else {
+                String smevResponse;
+                try {
+                    smevResponse = new RetrieveSmevTask().execute(seriesStr, numberStr, captchaStr).get();
+                } catch (Throwable e) {
+                    Log.e(TAG, e.getLocalizedMessage(), e);
+                    smevResponse = UNSUCCESSFUL_RESPONSE;
+                }
+
+                if (!UNSUCCESSFUL_RESPONSE.equals(smevResponse) &&
+                        !VALIDATION_ERROR_MSG.equals(smevResponse)) {
+                    seriesEditText.setText("");
+                    numberEditText.setText("");
                     updateCaptcha();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                updateCaptcha();
             }
         }
     };
 
+    EditText.OnEditorActionListener confirmationCaptchaOnEditorActionListener = new EditText.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (
+                            event != null &&
+                                    event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                    ) {
+                submitOnClickListener.onClick(v);
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(captchaEditText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                seriesEditText.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    };
+    private String UNKNOWN_HOST_EXCEPTION_MSG = "Ошибка при обращении к сервису ФМС";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadActivity();
+        routerActivity();
+    }
+
+    private void routerActivity() {
+        if (!isConnected()) {
+            loadActivityWithoutInternet();
+        } else {
+            loadActivityWithInternet();
+            updateCaptcha();
+        }
     }
 
     public boolean isConnected() {
@@ -117,71 +199,55 @@ public class MainActivity extends AppCompatActivity {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    private void loadActivity() {
-        if (!isConnected()) {
-            setContentView(R.layout.without_internet_layout);
-            Button restartBtn = (Button) findViewById(R.id.restartBtn);
-            restartBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadActivity();
-                }
-            });
-            return;
-        }
+    private void loadActivityWithInternet() {
         setContentView(R.layout.activity_main);
 
-        imageView = (ImageView) findViewById(R.id.captcha);
+        captchaImageView = (ImageView) findViewById(R.id.captcha);
 
-        series = (EditText) findViewById(R.id.series);
-        series.addTextChangedListener(seriaTextWatcher);
-        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(series.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
+        seriesEditText = (EditText) findViewById(R.id.series);
+        seriesEditText.addTextChangedListener(seriaTextWatcher);
+        seriesEditText.setOnEditorActionListener(seriesOnEditorActionListener);
+        seriesEditText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(seriesEditText, InputMethodManager.SHOW_IMPLICIT);
 
-        number = (EditText) findViewById(R.id.number);
-        number.addTextChangedListener(numberTextWatcher);
+        numberEditText = (EditText) findViewById(R.id.number);
+        numberTextView = (TextView) findViewById(R.id.numberLabel);
+        seriesLabel = (TextView) findViewById(R.id.seriesLabel);
+        numberEditText.addTextChangedListener(numberTextWatcher);
 
-        submitButton = (Button) findViewById(R.id.submit_button);
-        result = (TextView) findViewById(R.id.result);
-        confirmationCaptcha = (EditText) findViewById(R.id.confirmationCaptchaEditText);
-        confirmationCaptcha.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+        resultTextView = (TextView) findViewById(R.id.result);
+
+        captchaEditText = (EditText) findViewById(R.id.confirmationCaptchaEditText);
+        captchaEditText.setOnEditorActionListener(confirmationCaptchaOnEditorActionListener);
+        captchaEditText.addTextChangedListener(captchaTextWatcher);
+
+        captchaTextView = (TextView) findViewById(R.id.captchaTextView);
+
+        Button smevRequestButton = (Button) findViewById(R.id.submit_button);
+        smevRequestButton.setOnClickListener(submitOnClickListener);
+    }
+
+    private void loadActivityWithoutInternet() {
+        setContentView(R.layout.without_internet_layout);
+        Button restartBtn = (Button) findViewById(R.id.restartBtn);
+        restartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE ||
-                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    submitOnClickListener.onClick(v);
-                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    in.hideSoftInputFromWindow(confirmationCaptcha.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                routerActivity();
             }
         });
-
-        updateCaptcha();
-
-        submitButton.setOnClickListener(submitOnClickListener);
     }
 
     private void updateCaptcha() {
-        confirmationCaptcha.setText("");
+        captchaEditText.setText("");
 
         try {
-            imageView.setImageBitmap(new RetrieveCaptchaTask().execute().get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            loadActivity();
+            new RetrieveCaptchaTask().execute().get();
+        } catch (Exception e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+            loadActivityWithoutInternet();
         }
-    }
-
-    private String requestToSMEV(String series, String number, String captcha) throws Exception {
-        if (number == null || number.isEmpty() ||
-                series == null || series.isEmpty() ||
-                captcha == null || captcha.isEmpty()) {
-            return "Введены не корректные данные";
-        }
-
-        return new RetrieveSmevTask().execute(series, number, captcha).get();
     }
 
     class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
@@ -201,13 +267,22 @@ public class MainActivity extends AppCompatActivity {
                     return BitmapFactory.decodeStream(connection.getInputStream());
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getLocalizedMessage(), e);
             } finally {
                 if (connection != null) {
                     connection.disconnect();
                 }
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (result != null) {
+                captchaImageView.setImageBitmap(result);
+            } else {
+                loadActivityWithoutInternet();
+            }
         }
     }
 
@@ -217,31 +292,33 @@ public class MainActivity extends AppCompatActivity {
             String url = String.format(SMEV_URL, urls[0], urls[1], urls[2]);
             try {
                 HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-
                 connection.setRequestProperty("Cookie", cookies);
-
                 connection.setInstanceFollowRedirects(true);
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
-
                 connection.connect();
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.contains("По Вашему запросу о действительности паспорта")) {
                         in.close();
-                        System.out.println(inputLine);
                         return inputLine.substring(inputLine.indexOf("«") + 1, inputLine.indexOf("»"));
                     }
                 }
                 in.close();
-                return unsuccessful_response;
-
+                return UNSUCCESSFUL_RESPONSE;
             } catch (IOException e) {
-                e.printStackTrace();
-                return e.getMessage();
+                return UNKNOWN_HOST_EXCEPTION_MSG;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String smevResponse) {
+            if (smevResponse == null || UNKNOWN_HOST_EXCEPTION_MSG.equals(smevResponse)) {
+                Toast.makeText(getApplicationContext(), UNKNOWN_HOST_EXCEPTION_MSG, Toast.LENGTH_LONG).show();
+            } else {
+                resultTextView.setText(smevResponse);
             }
         }
     }

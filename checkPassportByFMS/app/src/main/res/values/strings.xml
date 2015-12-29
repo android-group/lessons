@@ -3,7 +3,10 @@
     <string name="check">Проверить</string>
     <string name="number">Номер</string>
     <string name="series">Серия</string>
-    <string name="captcha">captcha</string>
-    <string name="without_internet_msg">Для взаимодействия с ФМС используется интернет соединение. Пожалуйста подключите интернет. Спасибо.</string>
+    <string name="captcha" translatable="false">Код подтверждения</string>
+    <string name="captchaHint">Код подтверждения</string>
+    <string name="without_internet_msg">Если нет интернета - приложение не работает.</string>
     <string name="restart">Обновить</string>
+    <string name="numberLabel">Номер</string>
+    <string name="seriesLabel">Серия</string>
 </resources>
