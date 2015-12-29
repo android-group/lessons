@@ -32,10 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String SERVICE_CAPTCHA = "http://services.fms.gov.ru/services/captcha.jpg";
     private static final String SMEV_URL = "http://services.fms.gov.ru/info-service.htm?sid=2000&form_name=form&DOC_SERIE=%s&DOC_NUMBER=%s&captcha-input=%s";
 
-    private static final String UNSUCCESSFUL_RESPONSE = "ФМС не дал ответ по вашему запросу.";
     private static final String TAG = "MainActivity";
-    private static final String VALIDATION_ERROR_MSG = "Введены не корректные данные";
-    private static final String EMPTY_RESULT_MSG = "";
     private ImageView captchaImageView;
     private EditText numberEditText;
 
@@ -49,36 +46,9 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
     private TextView numberTextView;
     private EditText seriesEditText;
     private TextView seriesLabel;
-    private TextView captchaTextView;
-    private EditText captchaEditText;
-    private TextView resultTextView;
-    private NetworkInfo activeNetwork;
-    private String cookies;
-
-    private final TextWatcher captchaTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence text, int start, int before, int count) {
-            if (text.length() != 0) {
-                captchaTextView.setVisibility(View.VISIBLE);
-            } else {
-                captchaTextView.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
     private final TextWatcher seriaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,6 +73,28 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+    private TextView captchaTextView;
+    private final TextWatcher captchaTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence text, int start, int before, int count) {
+            if (text.length() != 0) {
+                captchaTextView.setVisibility(View.VISIBLE);
+            } else {
+                captchaTextView.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    private EditText captchaEditText;
     private final TextWatcher numberTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+    private TextView resultTextView;
     private final View.OnClickListener submitOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -135,27 +128,26 @@ public class MainActivity extends AppCompatActivity {
             String captchaStr = captchaEditText.getText().toString();
 
             if (seriesStr.length() == 0 || numberStr.length() == 0 || captchaStr.length() == 0) {
-                resultTextView.setText(EMPTY_RESULT_MSG);
-                Toast.makeText(getApplicationContext(), VALIDATION_ERROR_MSG, Toast.LENGTH_LONG).show();
+                resultTextView.setText(getString(R.string.empty_result_msg));
+                Toast.makeText(getApplicationContext(), getString(R.string.validation_error_msg), Toast.LENGTH_LONG).show();
             } else {
                 String smevResponse;
                 try {
                     smevResponse = new RetrieveSmevTask().execute(seriesStr, numberStr, captchaStr).get();
                 } catch (Throwable e) {
                     Log.e(TAG, e.getLocalizedMessage(), e);
-                    smevResponse = UNSUCCESSFUL_RESPONSE;
+                    smevResponse = getString(R.string.unsuccessful_response);
                 }
 
-                if (!UNSUCCESSFUL_RESPONSE.equals(smevResponse) &&
-                        !VALIDATION_ERROR_MSG.equals(smevResponse)) {
-                    seriesEditText.setText("");
-                    numberEditText.setText("");
+                if (!getString(R.string.unsuccessful_response).equals(smevResponse) &&
+                        !getString(R.string.validation_error_msg).equals(smevResponse)) {
+                    seriesEditText.setText(getString(R.string.empty_result_msg));
+                    numberEditText.setText(getString(R.string.empty_result_msg));
                     updateCaptcha();
                 }
             }
         }
     };
-
     private final EditText.OnEditorActionListener confirmationCaptchaOnEditorActionListener = new EditText.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -173,7 +165,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    private static final String UNKNOWN_HOST_EXCEPTION_MSG = "Ошибка при обращении к сервису ФМС";
+    private NetworkInfo activeNetwork;
+    private String cookies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,16 +300,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 in.close();
-                return UNSUCCESSFUL_RESPONSE;
+                return getString(R.string.unsuccessful_response);
             } catch (IOException e) {
-                return UNKNOWN_HOST_EXCEPTION_MSG;
+                return getString(R.string.unknown_host_exception_msg);
             }
         }
 
         @Override
         protected void onPostExecute(String smevResponse) {
-            if (smevResponse == null || UNKNOWN_HOST_EXCEPTION_MSG.equals(smevResponse)) {
-                Toast.makeText(getApplicationContext(), UNKNOWN_HOST_EXCEPTION_MSG, Toast.LENGTH_LONG).show();
+            if (smevResponse == null || getString(R.string.unknown_host_exception_msg).equals(smevResponse)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.unknown_host_exception_msg), Toast.LENGTH_LONG).show();
             } else {
                 resultTextView.setText(smevResponse);
             }
