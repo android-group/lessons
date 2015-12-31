@@ -6,12 +6,12 @@
     <string name="check">Проверить</string>
     <string name="number">Номер</string>
     <string name="number_label">Номер</string>
-    <string name="restart">Обновить</string>
+    <string name="refresh">Обновить</string>
     <string name="series">Серия</string>
     <string name="series_label">Серия</string>
     <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС.</string>
     <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
-    <string name="validation_error_msg">Введены не корректные данные";.</string>
+    <string name="validation_error_msg">Введены некорректные данные.</string>
     <string name="without_internet_msg">Если нет интернета - приложение не работает.</string>
     <string name="empty_result_msg"></string>
 </resources>

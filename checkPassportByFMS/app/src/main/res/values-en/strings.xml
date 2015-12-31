@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Checking passports at FMS</string>
+    <string name="captcha">Confirmation code</string>
+    <string name="captcha_hint">Confirmation code</string>
+    <string name="empty_result_msg" translatable="false"></string>
+    <string name="check">Check</string>
+    <string name="number">Number</string>
+    <string name="number_label">Number</string>
+    <string name="refresh">Refresh</string>
+    <string name="series">Series</string>
+    <string name="series_label">Series</string>
+    <string name="unsuccessful_response">FMS did not respond to your request.</string>
+    <string name="unknown_host_exception_msg">Error accessing FMS service.</string>
+    <string name="validation_error_msg">Incorrect data entered.</string>
+    <string name="without_internet_msg">When you haven\'t internet connection then the application cannot be running.</string>
+</resources>

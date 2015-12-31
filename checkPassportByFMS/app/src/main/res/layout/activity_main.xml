@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.joinlang.yury.checkpassportbyfms.MainActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,10 +103,10 @@
         android:id="@+id/result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:clickable="false"
         android:gravity="center"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#ff0000"
         android:textStyle="normal|bold" />
 
@@ -118,5 +120,7 @@
         style="@style/Base.TextAppearance.AppCompat.Button"
         android:background="#375eec"
         android:textColor="#ffffff"
-        android:layout_margin="@dimen/abc_action_button_min_width_overflow_material" />
+        android:layout_marginRight="@dimen/abc_action_button_min_width_overflow_material"
+        android:layout_marginBottom="@dimen/abc_action_button_min_width_overflow_material"
+        android:layout_marginLeft="@dimen/abc_action_button_min_width_overflow_material" />
 </LinearLayout>

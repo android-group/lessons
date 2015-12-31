@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Перевірка паспорта на ФМС</string>
+    <string name="captcha">Код підтвердження</string>
+    <string name="captcha_hint">Код підтвердження</string>
+    <string name="check">Перевірити</string>
+    <string name="number_label">Номер</string>
+    <string name="number">Номер</string>
+    <string name="refresh">Оновити</string>
+    <string name="series">Cерія</string>
+    <string name="series_label">Cерія</string>
+    <string name="unknown_host_exception_msg">Помилка при зверненні до сервісу ФМС.</string>
+    <string name="unsuccessful_response">ФМС не дав відповідь по вашому запиту.</string>
+    <string name="validation_error_msg">Введені некоректні дані.</string>
+    <string name="without_internet_msg">Якщо немає інтернету - програма не працює.</string>
+</resources>
