@@ -13,5 +13,7 @@
     <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
     <string name="validation_error_msg">Введены некорректные данные.</string>
     <string name="without_internet_msg">Если нет интернета - приложение не работает.</string>
-    <string name="empty_result_msg"></string>
+    <string name="next">Далее</string>
+    <string name="clear">Очистить</string>
+    <string name="back">Назад</string>
 </resources>

@@ -13,4 +13,5 @@
     <string name="unsuccessful_response">ФМС не дав відповідь по вашому запиту.</string>
     <string name="validation_error_msg">Введені некоректні дані.</string>
     <string name="without_internet_msg">Якщо немає інтернету - програма не працює.</string>
+    <string name="next">Наступний</string>
 </resources>

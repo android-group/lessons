@@ -12,5 +12,15 @@
     <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
     <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС.</string>
     <string name="validation_error_msg">Введены некорректные данные.</string>
-    <string name="empty_result_msg" translatable="false"></string>
+    <string name="next">Далее</string>
+    <string name="clear">Очистить</string>
+    <string name="back">Назад</string>
+    <string name="newRequest">Новый запрос</string>
+    <string name="title_main_activity">Сервисы ФМС</string>
+    <string name="title_passport_activity">Проверка паспорта</string>
+    <string name="btn_check_passport">Проверка паспорта</string>
+    <string name="btn_licence">Проверка действительности лицензий на трудоустройство граждан Российской Федерации за пределами территории Российской Федерации</string>
+    <string name="btn_check">Проверить</string>
+    <string name="clear_history">Очистить историю</string>
+
 </resources>
