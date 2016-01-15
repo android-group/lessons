@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/padding_linear_layout"
+    android:paddingLeft="@dimen/padding_linear_layout"
+    android:paddingBottom="@dimen/padding_linear_layout"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/captchaImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/captcha"
+        android:layout_weight="0.5" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/captcha_hint" />
+
+    <EditText
+        android:id="@+id/editCaptcha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:maxLength="6" />
+
+    <Button
+        android:id="@+id/btnCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/manu_text"
+        android:background="@drawable/button_next"
+        android:text="@string/btn_check"
+        android:textSize="@dimen/menu_text"
+        android:layout_marginTop="@dimen/menu_btn_margin_top" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/manu_text"
+        android:background="@drawable/button_back"
+        android:text="@string/back"
+        android:textSize="@dimen/menu_text"
+        android:layout_marginTop="@dimen/menu_btn_margin_top" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/manu_text"
+        android:background="@drawable/button_clear"
+        android:text="@string/clear"
+        android:textSize="@dimen/menu_text"
+        android:layout_marginTop="@dimen/menu_btn_margin_top" />
+</LinearLayout>
