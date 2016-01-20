@@ -78,8 +78,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PassportFragment(), "Запросы");
-        adapter.addFragment(new CaptchaFragment(), "Код подтверждения");
+        adapter.addFragment(new PassportFragment(), "Проверка паспорта");
         adapter.addFragment(new HistoryFragment(), "История");
         viewPager.setAdapter(adapter);
     }
@@ -87,10 +86,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnNext:
-                nextTab();
-                break;
-
             case R.id.btnBack:
                 prevTab();
                 break;
@@ -126,7 +121,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                 getHistoryList().add(getHashMapByPassport(passport));
 
                 clear(seriesEditText, numberEditText, captchaEditText, captchaFragment);
-                nextTab();
+                // nextTab();
                 break;
         }
     }
@@ -167,6 +162,12 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
 
     public void nextTab() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    }
+
+    public void nextCaptchaFragment(View view) {
+        /*final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_parent_group, new CaptchaFragment(), "CaptchaFragment");
+        ft.commit();*/
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

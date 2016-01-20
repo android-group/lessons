@@ -18,6 +18,6 @@
         android:id="@+id/btnClearHistory"
         android:textColor="@color/manu_text"
         android:background="@drawable/button_success"
-        android:textSize="@dimen/menu_text"/>
+        android:textSize="@dimen/menu_text" />
 
 </LinearLayout>

@@ -6,8 +6,7 @@
     android:orientation="vertical"
     android:paddingRight="@dimen/padding_linear_layout"
     android:paddingLeft="@dimen/padding_linear_layout"
-    android:paddingBottom="@dimen/padding_linear_layout"
-    >
+    android:paddingBottom="@dimen/padding_linear_layout">
 
     <TextView
         android:layout_width="match_parent"
@@ -42,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/next"
+        android:onClick="nextCaptchaFragment"
         android:textColor="@color/manu_text"
         android:background="@drawable/button_next"
         android:textSize="@dimen/menu_text"

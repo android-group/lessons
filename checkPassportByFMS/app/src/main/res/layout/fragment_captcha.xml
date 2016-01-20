@@ -3,11 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/padding_linear_layout"
-    android:paddingLeft="@dimen/padding_linear_layout"
-    android:paddingBottom="@dimen/padding_linear_layout"
-    android:weightSum="1">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/captchaImageView"
