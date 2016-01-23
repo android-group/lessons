@@ -6,7 +6,7 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#FFFFFF</color>
     <color name="colorAccent">#c8e8ff</color>
-
+    <color name="tabTextColor">#000000</color>
     <color name="manu_text">#FFFFFF</color>
 
     <color name="btn_menu">#700013</color>

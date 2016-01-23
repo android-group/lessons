@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HistoryFragment extends Fragment implements View.OnClickListener {
     PassportDBHelper passportDBHelper;
@@ -37,7 +38,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
 
         passportDBHelper = passportActivity.getPassportDBHelper();
         listView = (ListView) view.findViewById(R.id.listView);
-        adapter = new PassportBaseAdapter(passportActivity, passportActivity.getHistoryList());
+        List list = passportActivity.getHistoryList();
+        adapter = new PassportBaseAdapter(passportActivity, list);
         listView.setAdapter(adapter);
 
         return view;

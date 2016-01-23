@@ -10,18 +10,18 @@ import android.widget.TextView;
 
 import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PassportBaseAdapter extends BaseAdapter {
 
-    private ArrayList<HashMap<String, String>> list;
+    private List<Map<String, String>> list;
     private Activity activity;
     private TextView series;
     private TextView number;
     private TextView result;
 
-    public PassportBaseAdapter(Activity activity, ArrayList<HashMap<String, String>> list) {
+    public PassportBaseAdapter(Activity activity, List<Map<String, String>> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -55,7 +55,7 @@ public class PassportBaseAdapter extends BaseAdapter {
             result = (TextView) convertView.findViewById(R.id.result);
         }
 
-        HashMap<String, String> map = list.get(position);
+        Map<String, String> map = list.get(position);
         series.setText(map.get(PassportDBHelper.COLUMN_SERIES));
         number.setText(map.get(PassportDBHelper.COLUMN_NUMBER));
 

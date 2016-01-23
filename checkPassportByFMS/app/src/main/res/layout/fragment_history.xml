@@ -5,15 +5,17 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="453dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_marginBottom="90dp"
+        android:background="#f7f4f4">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="375dp"
-            android:layout_margin="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
             android:layout_gravity="center_horizontal|top" />
 
     </LinearLayout>
