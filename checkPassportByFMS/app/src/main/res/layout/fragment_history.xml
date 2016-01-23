@@ -3,26 +3,27 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <Button
+        android:id="@+id/btnClearHistory"
+        android:text="@string/clear_history"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:textColor="@color/manu_text"
+        android:background="@drawable/button_clear"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:layout_height="524dp"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal|bottom">
 
         <ListView
             android:id="@+id/listView"
-            android:layout_width="wrap_content"
-            android:layout_height="449dp"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="414dp"
             android:layout_margin="30dp" />
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/btnClearHistory"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom|right"
-        android:scaleType="fitXY"
-        android:src="@drawable/trashs" />
 
 </FrameLayout>

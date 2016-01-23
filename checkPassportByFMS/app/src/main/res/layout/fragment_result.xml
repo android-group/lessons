@@ -6,40 +6,47 @@
     android:paddingTop="@dimen/padding_linear_layout"
     android:paddingRight="@dimen/padding_linear_layout"
     android:paddingLeft="@dimen/padding_linear_layout"
-    android:paddingBottom="@dimen/padding_linear_layout">
+    android:paddingBottom="@dimen/padding_linear_layout"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.10"
+        android:paddingBottom="15dp">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=""
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:id="@+id/passport"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="center" />
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=""
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:gravity="center"
             android:id="@+id/result"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnNewRequest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
         android:background="@drawable/button_next"
         android:text="@string/btn_new_request"
         android:textColor="@color/manu_text"
         android:gravity="bottom|center"
-        android:textSize="18dp" />
+        android:textSize="20dp" />
 </LinearLayout>

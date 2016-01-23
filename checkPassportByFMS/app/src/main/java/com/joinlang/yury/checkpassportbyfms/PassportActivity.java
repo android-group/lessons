@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -100,36 +101,40 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                 showCaptchaDialogFragment();
                 break;
             case R.id.btnCheck:
-                passportFragment = (PassportFragment) adapter.getItem(0);
-                EditText captchaEditText = captchaFragment.getCaptchaEditText();
-                seriesEditText = passportFragment.getSeriesEditText();
-                numberEditText = passportFragment.getNumberEditText();
+                try {
+                    passportFragment = (PassportFragment) adapter.getItem(0);
+                    EditText captchaEditText = captchaFragment.getCaptchaEditText();
+                    seriesEditText = passportFragment.getSeriesEditText();
+                    numberEditText = passportFragment.getNumberEditText();
 
-                passport = new Passport();
-                passport.setSeries(seriesEditText.getText().toString());
-                passport.setNumber(numberEditText.getText().toString());
-                passport.setCaptcha(captchaEditText.getText().toString());
-                passport.setCookies(captchaFragment.getCookies());
+                    passport = new Passport();
+                    passport.setSeries(seriesEditText.getText().toString());
+                    passport.setNumber(numberEditText.getText().toString());
+                    passport.setCaptcha(captchaEditText.getText().toString());
+                    passport.setCookies(captchaFragment.getCookies());
 
-                if (passport.getSeries().length() != 4 || passport.getNumber().length() != 6 || passport.getCaptcha().length() != 6) {
-                    Toast.makeText(this, getString(R.string.validation_error_msg), Toast.LENGTH_LONG).show();
-                    return;
+                    if (passport.getSeries().length() != 4 || passport.getNumber().length() != 6 || passport.getCaptcha().length() != 6) {
+                        Toast.makeText(this, getString(R.string.validation_error_msg), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    setPassport(getSmevService().request(passport));
+
+                    if (passport == null || passport.getResult() == null ||
+                            passport.getResult().equals(TypicalResponse.CAPTCHA_NOT_VALID.getResult())
+                            ) {
+                        return;
+                    } else {
+                        showResultDialogFragment();
+                    }
+
+                    getHistoryList().add(getHashMapByPassport(passport));
+                    historyFragment.resetListView(getHistoryList());
+
+                    clear(seriesEditText, numberEditText, captchaEditText, captchaFragment);
+                } catch (NullPointerException e) {
+                    Log.e("NPE",e.getMessage());
                 }
-
-                setPassport(getSmevService().request(passport));
-
-                if (passport == null || passport.getResult() == null ||
-                        passport.getResult().equals(TypicalResponse.CAPTCHA_NOT_VALID.getResult())
-                        ) {
-                    return;
-                } else {
-                    showResultDialogFragment();
-                }
-
-                getHistoryList().add(getHashMapByPassport(passport));
-                historyFragment.resetListView(getHistoryList());
-
-                clear(seriesEditText, numberEditText, captchaEditText, captchaFragment);
                 break;
             case R.id.btnNewRequest:
                 Fragment prev = getSupportFragmentManager().findFragmentByTag("dlg_result_fragment");
