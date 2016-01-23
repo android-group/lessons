@@ -1,6 +1,5 @@
 package com.joinlang.yury.checkpassportbyfms;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -58,7 +57,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     }
 
     public void resetListView(ArrayList<HashMap<String, String>> list) {
-        adapter = new PassportBaseAdapter(passportActivity, list);
-        listView.refreshDrawableState();
+        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetInvalidated();
     }
 }

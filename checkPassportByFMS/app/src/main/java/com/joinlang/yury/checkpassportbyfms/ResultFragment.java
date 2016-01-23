@@ -3,15 +3,10 @@ package com.joinlang.yury.checkpassportbyfms;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.concurrent.ExecutionException;
 
 public class ResultFragment extends DialogFragment {
 
@@ -30,7 +25,11 @@ public class ResultFragment extends DialogFragment {
         getDialog().setTitle("Ответ ФМС");
 
         View view = inflater.inflate(R.layout.fragment_result, container, false);
-        TextView resultTextView = (TextView) view.findViewById(R.id.fmsResult);
+
+        TextView passportTextView = (TextView) view.findViewById(R.id.passport);
+        passportTextView.setText(passport.toString());
+
+        TextView resultTextView = (TextView) view.findViewById(R.id.result);
         resultTextView.setText(passport.getResult());
 
         view.findViewById(R.id.btnNewRequest).setOnClickListener(passportActivity);
