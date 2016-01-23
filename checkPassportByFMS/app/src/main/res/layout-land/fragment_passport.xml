@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingLeft="@dimen/padding_linear_layout"
+    android:paddingRight="@dimen/padding_linear_layout"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/okato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e8ffdb"
+        android:gravity="center"
+        android:paddingBottom="@dimen/padding_okato"
+        android:paddingTop="@dimen/padding_okato"
+        android:text="@string/series_label"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/series_label" />
+
+    <EditText
+        android:id="@+id/series"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/number_label" />
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number"
+        android:maxLength="6" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="@dimen/menu_btn_margin_top"
+        android:background="@drawable/button_next"
+        android:paddingTop="10dp"
+        android:text="@string/btn_check"
+        android:textColor="@color/manu_text"
+        android:textSize="@dimen/menu_text" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginTop="@dimen/menu_btn_margin_top"
+        android:background="@drawable/button_clear"
+        android:text="@string/clear"
+        android:textColor="@color/manu_text"
+        android:textSize="@dimen/menu_text" />
+</LinearLayout>

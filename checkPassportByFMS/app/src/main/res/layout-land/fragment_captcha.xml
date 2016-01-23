@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_linear_layout"
+    android:paddingLeft="@dimen/padding_linear_layout"
+    android:paddingRight="@dimen/padding_linear_layout"
+    android:paddingTop="@dimen/padding_linear_layout">
+
+    <ImageView
+        android:id="@+id/captchaImageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="fill_horizontal|fill_vertical"
+        android:contentDescription="@string/captcha" />
+
+    <EditText
+        android:id="@+id/editCaptcha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:inputType="number"
+        android:maxLength="6" />
+
+    <Button
+        android:id="@+id/btnCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/menu_btn_margin_top"
+        android:background="@drawable/button_next"
+        android:text="@string/btn_check"
+        android:textColor="@color/manu_text"
+        android:textSize="@dimen/menu_text" />
+</LinearLayout>
