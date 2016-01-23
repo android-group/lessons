@@ -13,6 +13,7 @@
         <activity
             android:name=".PassportActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:label="@string/title_passport_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
