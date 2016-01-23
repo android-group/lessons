@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="center"
-        android:background="#d27700"
-        app:tabIndicatorColor="#0000FF"
-        app:tabSelectedTextColor="#00FFFF"
-        app:tabTextColor="#0000FF"/>
+        android:background="#5BB75B"
+        app:tabIndicatorColor="#ff8800"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabTextColor="#ffffff"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
