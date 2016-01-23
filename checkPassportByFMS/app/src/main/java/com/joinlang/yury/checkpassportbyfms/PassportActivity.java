@@ -120,9 +120,8 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
 
                     setPassport(getSmevService().request(passport));
 
-                    if (passport == null || passport.getResult() == null ||
-                            passport.getResult().equals(TypicalResponse.CAPTCHA_NOT_VALID.getResult())
-                            ) {
+                    if (passport == null || passport.getTypicalResponse() == null ||
+                            passport.getTypicalResponse() == TypicalResponse.CAPTCHA_NOT_VALID) {
                         return;
                     } else {
                         showResultDialogFragment();
@@ -213,7 +212,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         HashMap<String, String> passportHashMap = new HashMap<>();
         passportHashMap.put(PassportDBHelper.COLUMN_SERIES, passport.getSeries());
         passportHashMap.put(PassportDBHelper.COLUMN_NUMBER, passport.getNumber());
-        passportHashMap.put(PassportDBHelper.COLUMN_RESULT, passport.getResult());
+        passportHashMap.put(PassportDBHelper.COLUMN_RESULT, passport.getTypicalResponse().getResult());
         return passportHashMap;
     }
 

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/padding_linear_layout"
-    android:paddingRight="@dimen/padding_linear_layout"
+    android:paddingBottom="@dimen/padding_linear_layout"
     android:paddingLeft="@dimen/padding_linear_layout"
-    android:paddingBottom="@dimen/padding_linear_layout">
+    android:paddingRight="@dimen/padding_linear_layout"
+    android:paddingTop="@dimen/padding_linear_layout">
 
     <ImageView
         android:id="@+id/captchaImageView"
@@ -19,10 +19,10 @@
         android:id="@+id/editCaptcha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:maxLength="6"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp" />
+        android:inputType="number"
+        android:maxLength="6" />
 
     <Button
         android:id="@+id/btnCheck"

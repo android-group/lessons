@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <Button
-        android:id="@+id/btnClearHistory"
-        android:text="@string/clear_history"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:textColor="@color/manu_text"
-        android:background="@drawable/button_clear"
-        android:layout_height="wrap_content" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="524dp"
-        android:weightSum="1"
-        android:layout_gravity="center_horizontal|bottom">
+        android:layout_height="453dp"
+        android:layout_gravity="center_horizontal|top"
+        android:weightSum="1">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="414dp"
-            android:layout_margin="30dp" />
+            android:layout_height="375dp"
+            android:layout_margin="30dp"
+            android:layout_gravity="center_horizontal|top" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnClearHistory"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/button_clear"
+        android:text="@string/clear_history"
+        android:textColor="@color/manu_text"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp" />
 
 </FrameLayout>

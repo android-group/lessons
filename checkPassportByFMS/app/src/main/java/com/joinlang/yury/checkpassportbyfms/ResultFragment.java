@@ -1,6 +1,7 @@
 package com.joinlang.yury.checkpassportbyfms;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -22,16 +23,17 @@ public class ResultFragment extends DialogFragment {
                              Bundle savedInstanceState) {
 
         Passport passport = ((PassportActivity) getActivity()).getPassport();
-        getDialog().setTitle("Ответ ФМС");
+        getDialog().setTitle("Паспорт: " + passport.toString());
 
         View view = inflater.inflate(R.layout.fragment_result, container, false);
 
-        TextView passportTextView = (TextView) view.findViewById(R.id.passport);
-        passportTextView.setText(passport.toString());
-
         TextView resultTextView = (TextView) view.findViewById(R.id.result);
-        resultTextView.setText(passport.getResult());
-
+        resultTextView.setText(passport.getTypicalResponse().getResult());
+        if(passport.getTypicalResponse().isValid()) {
+            resultTextView.setTextColor(Color.GREEN);
+        } else {
+            resultTextView.setTextColor(Color.RED);
+        }
         view.findViewById(R.id.btnNewRequest).setOnClickListener(passportActivity);
         return view;
     }

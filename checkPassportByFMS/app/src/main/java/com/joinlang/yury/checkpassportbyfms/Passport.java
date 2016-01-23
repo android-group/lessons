@@ -1,10 +1,12 @@
 package com.joinlang.yury.checkpassportbyfms;
 
+import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+
 public class Passport {
     private Integer id;
     private String series;
     private String number;
-    private String result;
+    private TypicalResponse typicalResponse;
     private String captcha;
     private String cookies;
 
@@ -48,12 +50,12 @@ public class Passport {
         this.number = number;
     }
 
-    public String getResult() {
-        return result;
+    public TypicalResponse getTypicalResponse() {
+        return typicalResponse;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setTypicalResponse(TypicalResponse typicalResponse) {
+        this.typicalResponse = typicalResponse;
     }
 
     @Override

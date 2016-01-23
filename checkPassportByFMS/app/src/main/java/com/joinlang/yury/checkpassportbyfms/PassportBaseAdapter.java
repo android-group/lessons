@@ -1,11 +1,14 @@
 package com.joinlang.yury.checkpassportbyfms;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +58,16 @@ public class PassportBaseAdapter extends BaseAdapter {
         HashMap<String, String> map = list.get(position);
         series.setText(map.get(PassportDBHelper.COLUMN_SERIES));
         number.setText(map.get(PassportDBHelper.COLUMN_NUMBER));
-        result.setText(map.get(PassportDBHelper.COLUMN_RESULT));
+
+        String resultStr = map.get(PassportDBHelper.COLUMN_RESULT);
+        result.setText(resultStr);
+        
+        if(TypicalResponse.findByResult(resultStr).isValid()) {
+            result.setTextColor(Color.GREEN);
+        } else {
+            result.setTextColor(Color.RED);
+        }
+
 
         return convertView;
     }

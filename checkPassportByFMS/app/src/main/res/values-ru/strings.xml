@@ -18,6 +18,17 @@
     <string name="back">Назад</string>
     <string name="connection_problem">Ошибка подключения. Подключите интернет и повторите проверку.</string>
     <string name="btn_new_request">Новый запрос</string>
-    <string name="очистить">trash</string>
-    <string name="Очистить">trash</string>
+    <string name="очистить">Очистить</string>
+    <string name="Очистить">Очистить</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="btn_check">Проверить</string>
+    <string name="btn_check_passport">Проверка паспорта</string>
+    <string name="btn_history">История запросов</string>
+    <string name="btn_licence">Проверка действительности лицензий на трудоустройство граждан Российской Федерации за пределами территории Российской Федерации</string>
+    <string name="captcha_not_valid_msg">Код подтверждения не верный.</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="newRequest">Новый запрос</string>
+    <string name="series_validation_error_msg">Некорректная серия паспорта.</string>
+    <string name="title_main_activity">Сервисы ФМС</string>
+    <string name="title_passport_activity">Проверка паспорта</string>
 </resources>

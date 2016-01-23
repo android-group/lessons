@@ -27,7 +27,7 @@
     <string name="clear_history">Очистить историю</string>
     <string name="btn_new_request">Новый запрос</string>
     <string name="btn_history">История запросов</string>
-    <string name="очистить">trash</string>
-    <string name="Очистить">trash</string>
+    <string name="очистить">Очистить</string>
+    <string name="Очистить">Очистить</string>
 
 </resources>

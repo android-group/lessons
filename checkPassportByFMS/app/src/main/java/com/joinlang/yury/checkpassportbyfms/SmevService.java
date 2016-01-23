@@ -35,8 +35,9 @@ public class SmevService {
 
         try {
             smevResult = new RetrieveSmevTask().execute(series, number, captchaStr).get();
-            if(smevResult == TypicalResponse.CAPTCHA_NOT_VALID) {
+            if (smevResult == TypicalResponse.CAPTCHA_NOT_VALID) {
                 Toast.makeText(activity, activity.getString(R.string.captcha_not_valid_msg), Toast.LENGTH_LONG).show();
+                return null;
             }
         } catch (Throwable e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
@@ -47,8 +48,11 @@ public class SmevService {
             return null;
         }
 
-        passportDBHelper.insert(series, number, smevResult.getResult());
-        passport.setResult(smevResult.getResult());
+        if (smevResult == TypicalResponse.NOT_VALID || smevResult == TypicalResponse.VALID) {
+            passportDBHelper.insert(series, number, smevResult.getResult());
+        }
+
+        passport.setTypicalResponse(TypicalResponse.findByResult(smevResult.getResult()));
         return passport;
     }
 
@@ -72,7 +76,7 @@ public class SmevService {
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.contains("По Вашему запросу о действительности паспорта")) {
                         in.close();
-                        return TypicalResponse.findByNumber(inputLine.substring(inputLine.indexOf("«") + 1, inputLine.indexOf("»")).toString());
+                        return TypicalResponse.findByFullText(inputLine.substring(inputLine.indexOf("«") + 1, inputLine.indexOf("»")).toString());
                     }
                 }
                 in.close();

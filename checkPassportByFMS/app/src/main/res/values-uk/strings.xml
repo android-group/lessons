@@ -14,4 +14,21 @@
     <string name="validation_error_msg">Введені некоректні дані.</string>
     <string name="without_internet_msg">Якщо немає інтернету - програма не працює.</string>
     <string name="next">Наступний</string>
+    <string name="back">Назад</string>
+    <string name="btn_check">Перевірити</string>
+    <string name="btn_check_passport">Перевірка паспорта</string>
+    <string name="btn_history">Історія запитів</string>
+    <string name="btn_licence">Перевірка дійсності ліцензій на працевлаштування громадян Російської Федерації за межами території Російської Федерації</string>
+    <string name="btn_new_request">Новий запит</string>
+    <string name="captcha_not_valid_msg">Код підтвердження не вірний.</string>
+    <string name="clear">Очистити</string>
+    <string name="clear_history">Очистити історію</string>
+    <string name="connection_problem">Помилка підключення. Підключіть інтернет і повторіть перевірку.</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="newRequest">новий запит</string>
+    <string name="series_validation_error_msg">Некоректна серія паспорта.</string>
+    <string name="title_main_activity">Сервіси ФМС</string>
+    <string name="title_passport_activity">Перевірка паспорта</string>
+    <string name="очистить">Сміття</string>
+    <string name="Очистить">Сміття</string>
 </resources>

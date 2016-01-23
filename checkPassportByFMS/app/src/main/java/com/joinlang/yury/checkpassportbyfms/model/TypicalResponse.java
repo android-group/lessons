@@ -33,9 +33,18 @@ public enum TypicalResponse {
         return isValid;
     }
 
-    public static TypicalResponse findByNumber(String response) {
+    public static TypicalResponse findByFullText(String response) {
         for (TypicalResponse typicalResponse: values()) {
             if (typicalResponse.getFullText().equals(response)) {
+                return typicalResponse;
+            }
+        }
+        return null;
+    }
+
+    public static TypicalResponse findByResult(String result) {
+        for (TypicalResponse typicalResponse: values()) {
+            if (typicalResponse.getResult().equals(result)) {
                 return typicalResponse;
             }
         }

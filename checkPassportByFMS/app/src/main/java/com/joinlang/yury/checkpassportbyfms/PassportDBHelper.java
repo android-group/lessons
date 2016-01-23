@@ -7,6 +7,8 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 
@@ -100,7 +102,7 @@ public class PassportDBHelper extends SQLiteOpenHelper {
             passport.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
             passport.setSeries(cursor.getString(cursor.getColumnIndex(COLUMN_SERIES)));
             passport.setNumber(cursor.getString(cursor.getColumnIndex(COLUMN_NUMBER)));
-            passport.setResult(cursor.getString(cursor.getColumnIndex(COLUMN_RESULT)));
+            passport.setTypicalResponse(TypicalResponse.findByResult(cursor.getString(cursor.getColumnIndex(COLUMN_RESULT))));
             arrayList.add(passport);
             cursor.moveToNext();
         }

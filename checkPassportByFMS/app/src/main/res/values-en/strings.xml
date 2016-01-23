@@ -15,4 +15,20 @@
     <string name="without_internet_msg">When you haven\'t internet connection then the application cannot be running.</string>
     <string name="next">Next</string>
     <string name="connection_problem">Connection problem. Please, reconnect your internet and try again</string>
+    <string name="font_fontFamily_medium">sans-serif</string>
+    <string name="back">Back</string>
+    <string name="btn_check">Check</string>
+    <string name="btn_check_passport">Check passport</string>
+    <string name="btn_history">History Requests</string>
+    <string name="btn_licence">Proverka reality trudoustroystvo licenses for citizens of the Russian Federation on the territory of the Russian Federation Limit</string>
+    <string name="btn_new_request">New request</string>
+    <string name="Очистить">trash</string>
+    <string name="очистить">trash</string>
+    <string name="series_validation_error_msg">Series validation_error</string>
+    <string name="title_main_activity">Service FMS</string>
+    <string name="title_passport_activity">Check passport</string>
+    <string name="newRequest">New request</string>
+    <string name="clear">Clear</string>
+    <string name="clear_history">Clear history</string>
+    <string name="captcha_not_valid_msg">Captcha is not valid</string>
 </resources>
