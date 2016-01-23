@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Checking passports at FMS</string>
+    <string name="app_name">Checking passports</string>
     <string name="captcha">Confirmation code</string>
     <string name="captcha_hint">Confirmation code</string>
     <string name="check">Check</string>
@@ -14,4 +14,5 @@
     <string name="validation_error_msg">Incorrect data entered.</string>
     <string name="without_internet_msg">When you haven\'t internet connection then the application cannot be running.</string>
     <string name="next">Next</string>
+    <string name="connection_problem">Connection problem. Please, reconnect your internet and try again</string>
 </resources>

@@ -55,4 +55,9 @@ public class Passport {
     public void setResult(String result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return getSeries() + getNumber() + ":" + getResult();
+    }
 }

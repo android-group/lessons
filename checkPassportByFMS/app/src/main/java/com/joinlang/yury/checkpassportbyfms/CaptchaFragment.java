@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,13 +15,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 public class CaptchaFragment extends DialogFragment implements View.OnClickListener {
 
@@ -31,56 +28,8 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
 
     private PassportActivity passportActivity;
     private ImageView captchaImageView;
+
     private EditText captchaEditText;
-    private String cookies;
-
-    public String getCookies() {
-        return cookies;
-    }
-
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
-    }
-
-    public EditText getCaptchaEditText() {
-        return captchaEditText;
-    }
-
-    public CaptchaFragment() {
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof PassportActivity) {
-            passportActivity = (PassportActivity) context;
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_captcha, container, false);
-
-        view.findViewById(R.id.btnClear).setOnClickListener(this);
-        view.findViewById(R.id.btnBack).setOnClickListener(passportActivity);
-        view.findViewById(R.id.btnCheck).setOnClickListener(passportActivity);
-
-        captchaImageView = (ImageView) view.findViewById(R.id.captchaImageView);
-        captchaImageView.setOnClickListener(this);
-
-        captchaEditText = (EditText) view.findViewById(R.id.editCaptcha);
-        captchaEditText.addTextChangedListener(captchaTextWatcher);
-        updateCaptcha();
-        return view;
-    }
-
     private final TextWatcher captchaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,6 +51,63 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
         }
     };
 
+    private String cookies;
+    private Boolean isConnectionProblem = false;
+    private Bitmap captchaImageBitmap;
+
+    public CaptchaFragment() {
+        updateCaptchaImageBitmap();
+    }
+
+    public String getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
+    }
+
+    public EditText getCaptchaEditText() {
+        return captchaEditText;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof PassportActivity) {
+            passportActivity = (PassportActivity) context;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        getDialog().setTitle(getString(R.string.captcha_hint));
+
+        View view = inflater.inflate(R.layout.fragment_captcha, container, false);
+
+        view.findViewById(R.id.btnCheck).setOnClickListener(passportActivity);
+
+        captchaImageView = (ImageView) view.findViewById(R.id.captchaImageView);
+        captchaImageView.setOnClickListener(this);
+        captchaImageView.setImageBitmap(getCaptchaImageBitmap());
+
+        captchaEditText = (EditText) view.findViewById(R.id.editCaptcha);
+        captchaEditText.addTextChangedListener(captchaTextWatcher);
+        captchaEditText.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) passportActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(captchaEditText.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT);
+
+        return view;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -109,24 +115,46 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
                 captchaEditText.setText("");
                 break;
             case R.id.captchaImageView:
-                updateCaptcha();
+                try {
+                    updateCaptcha();
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
 
-    private void updateCaptcha() {
+    private void updateCaptcha() throws ExecutionException, InterruptedException {
+        updateCaptchaImageBitmap();
+        captchaImageView.setImageBitmap(getCaptchaImageBitmap());
         captchaEditText.setText("");
+    }
 
+    public Boolean getIsConnectionProblem() {
+        return isConnectionProblem;
+    }
+
+    public void setIsConnectionProblem(Boolean isConnectionProblem) {
+        this.isConnectionProblem = isConnectionProblem;
+    }
+
+    public void updateCaptchaImageBitmap() {
         try {
-            new RetrieveCaptchaTask().execute().get();
-        } catch (Exception e) {
-            Log.e(TAG, e.getLocalizedMessage(), e);
-            Toast.makeText(passportActivity, "Internet problem", Toast.LENGTH_SHORT);
+            this.captchaImageBitmap = new RetrieveCaptchaTask().execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
-    private class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
+    public Bitmap getCaptchaImageBitmap() {
+        return captchaImageBitmap;
+    }
 
+    public void setCaptchaImageBitmap(Bitmap captchaImageBitmap) {
+        this.captchaImageBitmap = captchaImageBitmap;
+    }
+
+    private class RetrieveCaptchaTask extends AsyncTask<String, Void, Bitmap> {
         protected Bitmap doInBackground(String... urls) {
             HttpURLConnection connection = null;
             try {
@@ -141,8 +169,11 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
 
                     return BitmapFactory.decodeStream(connection.getInputStream());
                 }
+
+                setIsConnectionProblem(true);
             } catch (IOException e) {
                 Log.e(TAG, e.getLocalizedMessage(), e);
+                setIsConnectionProblem(true);
             } finally {
                 if (connection != null) {
                     connection.disconnect();
@@ -154,9 +185,9 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
         @Override
         protected void onPostExecute(Bitmap result) {
             if (result != null) {
-                captchaImageView.setImageBitmap(result);
+                setCaptchaImageBitmap(result);
             } else {
-                Toast.makeText(passportActivity, "Connection problem", Toast.LENGTH_SHORT);
+                setIsConnectionProblem(true);
             }
         }
     }

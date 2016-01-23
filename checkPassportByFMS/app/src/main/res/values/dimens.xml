@@ -8,12 +8,13 @@
     <dimen name="custom_tab_layout_height">72dp</dimen>
 
     <dimen name="padding_linear_layout">30dp</dimen>
+    <dimen name="padding_okato">10dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="menu_text">14dp</dimen>
-    <dimen name="menu_btn_margin_top">14dp</dimen>
+    <dimen name="menu_btn_margin_top">15dp</dimen>
 
 
 </resources>

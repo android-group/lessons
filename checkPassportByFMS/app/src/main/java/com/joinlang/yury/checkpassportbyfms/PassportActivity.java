@@ -1,17 +1,23 @@
 package com.joinlang.yury.checkpassportbyfms;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.joinlang.yury.checkpassportbyfms.model.Series;
+import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import com.joinlang.yury.checkpassportbyfms.validation.CheckSeriesService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +27,16 @@ import java.util.List;
 public class PassportActivity extends AppCompatActivity implements View.OnClickListener {
 
     ArrayList<HashMap<String, String>> historyList;
+    HistoryFragment historyFragment;
+    PassportFragment passportFragment;
+    CaptchaFragment captchaFragment;
+    EditText seriesEditText;
+    EditText numberEditText;
+    ResultFragment resultFragment;
+    CheckSeriesService checkSeriesService = CheckSeriesService.getInstance();
+    TextView okatoTextView;
     private ViewPagerAdapter adapter;
-    private Toolbar toolbar;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Passport passport;
@@ -34,10 +48,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
             passportDBHelper = new PassportDBHelper(this);
         }
         return passportDBHelper;
-    }
-
-    public void setPassportDBHelper(PassportDBHelper passportDBHelper) {
-        this.passportDBHelper = passportDBHelper;
     }
 
     public SmevService getSmevService() {
@@ -63,10 +73,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passport);
 
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -77,53 +83,103 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        passportFragment = new PassportFragment();
+        historyFragment = new HistoryFragment();
+
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PassportFragment(), "Проверка паспорта");
-        adapter.addFragment(new HistoryFragment(), "История");
+        adapter.addFragment(passportFragment, "Проверка паспорта");
+        adapter.addFragment(historyFragment, "История");
+
         viewPager.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnBack:
-                prevTab();
+            case R.id.btnNext:
+                showCaptchaDialogFragment();
                 break;
-
             case R.id.btnCheck:
-                PassportFragment passportFragment = (PassportFragment) adapter.getItem(0);
-                CaptchaFragment captchaFragment = (CaptchaFragment) adapter.getItem(1);
-
-                EditText seriesEditText = passportFragment.getSeriesEditText();
-                EditText numberEditText = passportFragment.getNumberEditText();
+                passportFragment = (PassportFragment) adapter.getItem(0);
                 EditText captchaEditText = captchaFragment.getCaptchaEditText();
+                seriesEditText = passportFragment.getSeriesEditText();
+                numberEditText = passportFragment.getNumberEditText();
 
-                Passport passport = new Passport();
+                passport = new Passport();
                 passport.setSeries(seriesEditText.getText().toString());
                 passport.setNumber(numberEditText.getText().toString());
                 passport.setCaptcha(captchaEditText.getText().toString());
                 passport.setCookies(captchaFragment.getCookies());
 
-                if (passport.getSeries().length() == 0 || passport.getNumber().length() == 0 || passport.getCaptcha().length() == 0) {
+                if (passport.getSeries().length() != 4 || passport.getNumber().length() != 6 || passport.getCaptcha().length() != 6) {
                     Toast.makeText(this, getString(R.string.validation_error_msg), Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                passport = getSmevService().request(passport);
+                setPassport(getSmevService().request(passport));
 
-                if(passport != null) {
-                    //updateCaptcha();
-                } else {
-                    Toast.makeText(this, "Код подтверждения не верный", Toast.LENGTH_LONG).show();
+                if (passport == null || passport.getResult() == null ||
+                        passport.getResult().equals(TypicalResponse.CAPTCHA_NOT_VALID.getResult())
+                        ) {
                     return;
+                } else {
+                    showResultDialogFragment();
                 }
 
                 getHistoryList().add(getHashMapByPassport(passport));
+                historyFragment.resetListView(getHistoryList());
 
                 clear(seriesEditText, numberEditText, captchaEditText, captchaFragment);
-                // nextTab();
+                break;
+            case R.id.btnNewRequest:
+                Fragment prev = getSupportFragmentManager().findFragmentByTag("dlg_result_fragment");
+                if (prev != null) {
+                    DialogFragment df = (DialogFragment) prev;
+                    df.dismiss();
+                }
                 break;
         }
+    }
+
+    private void showResultDialogFragment() {
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dlg_captcha_fragment");
+        if (prev != null) {
+            DialogFragment df = (DialogFragment) prev;
+            df.dismiss();
+        }
+
+        resultFragment = new ResultFragment();
+        resultFragment.show(getSupportFragmentManager(), "dlg_result_fragment");
+    }
+
+    private void showCaptchaDialogFragment() {
+        captchaFragment = new CaptchaFragment();
+
+        if (captchaFragment.getIsConnectionProblem()) {
+            Toast.makeText(this, getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        seriesEditText = (EditText) findViewById(R.id.series);
+        numberEditText = (EditText) findViewById(R.id.number);
+
+        if (seriesEditText.getText().toString().length() != 4 ||
+                numberEditText.getText().toString().length() != 6) {
+            Toast.makeText(this, getString(R.string.validation_error_msg), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Series result = checkSeriesService.getCheckedSeries(seriesEditText.getText().toString());
+        if (result.isValid()) {
+            okatoTextView = (TextView) findViewById(R.id.okato);
+            okatoTextView.setText(result.getOkato().region);
+            okatoTextView.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(this, getString(R.string.series_validation_error_msg), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        captchaFragment.show(getSupportFragmentManager(), "dlg_captcha_fragment");
     }
 
     private void clear(EditText seriesEditText, EditText numberEditText, EditText captchaEditText, CaptchaFragment captchaFragment) {
@@ -156,18 +212,15 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         return passportHashMap;
     }
 
-    private void prevTab() {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        /*if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //your code
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //your code
 
-    public void nextTab() {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-    }
-
-    public void nextCaptchaFragment(View view) {
-        /*final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_parent_group, new CaptchaFragment(), "CaptchaFragment");
-        ft.commit();*/
+        }*/
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

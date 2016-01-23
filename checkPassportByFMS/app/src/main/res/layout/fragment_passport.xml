@@ -2,11 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top|center"
     android:orientation="vertical"
+    android:paddingTop="15dp"
     android:paddingRight="@dimen/padding_linear_layout"
     android:paddingLeft="@dimen/padding_linear_layout"
-    android:paddingBottom="@dimen/padding_linear_layout">
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/series_label"
+        android:id="@+id/okato"
+        android:background="#e8ffdb"
+        android:gravity="center"
+        android:paddingTop="@dimen/padding_okato"
+        android:paddingBottom="@dimen/padding_okato"
+        android:textSize="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -40,13 +52,13 @@
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:onClick="nextCaptchaFragment"
+        android:text="@string/btn_check"
         android:textColor="@color/manu_text"
         android:background="@drawable/button_next"
         android:textSize="@dimen/menu_text"
+        android:paddingTop="10dp"
         android:layout_marginTop="@dimen/menu_btn_margin_top"
-        android:layout_gravity="center" />
+        android:layout_gravity="bottom|center" />
 
     <Button
         android:id="@+id/btnClear"
@@ -57,5 +69,5 @@
         android:background="@drawable/button_clear"
         android:textSize="@dimen/menu_text"
         android:layout_marginTop="@dimen/menu_btn_margin_top"
-        android:layout_gravity="center" />
+        android:layout_gravity="bottom|center" />
 </LinearLayout>

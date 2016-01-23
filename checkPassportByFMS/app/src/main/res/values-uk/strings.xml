@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Перевірка паспорта на ФМС</string>
+    <string name="app_name">Перевірка паспорта</string>
     <string name="captcha">Код підтвердження</string>
     <string name="captcha_hint">Код підтвердження</string>
     <string name="check">Перевірити</string>

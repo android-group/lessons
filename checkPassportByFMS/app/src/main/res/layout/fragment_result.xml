@@ -8,29 +8,35 @@
     android:paddingLeft="@dimen/padding_linear_layout"
     android:paddingBottom="@dimen/padding_linear_layout">
 
-    <ImageView
-        android:id="@+id/captchaImageView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="fill_horizontal|fill_vertical"
-        android:contentDescription="@string/captcha" />
-
-    <EditText
-        android:id="@+id/editCaptcha"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:maxLength="6"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" "
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/fmsResult" />
 
     <Button
-        android:id="@+id/btnCheck"
+        android:id="@+id/btnNewRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_next"
+        android:text="@string/btn_new_request"
+        android:textColor="@color/manu_text"
+        android:gravity="bottom|center"
+        android:textSize="18dp" />
+
+    <!--<Button
+        android:id="@+id/btnHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/menu_btn_margin_top"
+        android:layout_marginBottom="@dimen/menu_btn_margin_top"
         android:background="@drawable/button_next"
-        android:text="@string/btn_check"
+        android:text="@string/btn_history"
         android:textColor="@color/manu_text"
-        android:textSize="@dimen/menu_text" />
+        android:gravity="bottom|center"
+        android:textSize="@dimen/menu_text" />-->
 </LinearLayout>

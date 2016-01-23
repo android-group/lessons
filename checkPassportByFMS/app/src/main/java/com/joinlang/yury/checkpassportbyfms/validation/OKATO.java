@@ -1,12 +1,13 @@
-package com.joinlang.yury.checkpassportbyfms;
+package com.joinlang.yury.checkpassportbyfms.validation;
 
+// Общероссийский классификатор административно-территориального деления объектов
 public enum OKATO {
-    A1("1", "г Барнаул"),
-    A3("3", "г Краснодар"),
-    A4("4", "г Красноярск"),
-    A5("5", "г Владивосток"),
-    A7("7", "г Ставрополь"),
-    A8("8", "г Хабаровск"),
+    A01("01", "г Барнаул"),
+    A03("03", "г Краснодар"),
+    A04("04", "г Красноярск"),
+    A05("05", "г Владивосток"),
+    A07("07", "г Ставрополь"),
+    A08("08", "г Хабаровск"),
     A10("10", "г Благовещенск"),
     A11("11", "г Архангельск"),
     A12("12", "г Астрахань"),
@@ -30,12 +31,12 @@ public enum OKATO {
     A36("36", "г Самара"),
     A37("37", "г Курган"),
     A38("38", "г Курск"),
-    A40("40", ""),
-    A41("41", "г Санкт-Петербург"),
+    A40("40", "г Санкт-Петербург"),
+    A41("41", "Ленинградская область"),
     A42("42", "г Липецк"),
     A44("44", "г Магадан"),
-    A45("45", ""),
-    A46("46", "г Москва"),
+    A45("45", "г Москва"),
+    A46("46", "Московская область"),
     A47("47", "г Мурманск"),
     A49("49", "г Великий Новгород"),
     A50("50", "г Новосибирск"),
@@ -86,7 +87,19 @@ public enum OKATO {
     public final String region;
 
     OKATO(String number, String region) {
+        if (number.length() != 2) {
+            System.out.printf("number = 2");
+        }
         this.number = number;
         this.region = region;
+    }
+
+    public static OKATO findByNumber(String number) {
+        for (OKATO okato : values()) {
+            if (okato.number.equals(number)) {
+                return okato;
+            }
+        }
+        return null;
     }
 }

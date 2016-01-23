@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class PassportBaseAdapter extends BaseAdapter {
 
-    public ArrayList<HashMap<String, String>> list;
-    Activity activity;
-    TextView series;
-    TextView number;
-    TextView result;
+    private ArrayList<HashMap<String, String>> list;
+    private Activity activity;
+    private TextView series;
+    private TextView number;
+    private TextView result;
 
     public PassportBaseAdapter(Activity activity, ArrayList<HashMap<String, String>> list) {
         super();
@@ -58,5 +58,9 @@ public class PassportBaseAdapter extends BaseAdapter {
         result.setText(map.get(PassportDBHelper.COLUMN_RESULT));
 
         return convertView;
+    }
+
+    public void clearList() {
+        list.clear();
     }
 }

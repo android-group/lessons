@@ -1,5 +1,6 @@
 package com.joinlang.yury.checkpassportbyfms;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class HistoryFragment extends Fragment implements View.OnClickListener {
     PassportDBHelper passportDBHelper;
     PassportActivity passportActivity;
-
+    PassportBaseAdapter adapter;
+    ListView listView;
 
     public HistoryFragment() {
 
@@ -32,8 +37,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.btnClearHistory).setOnClickListener(this);
 
         passportDBHelper = passportActivity.getPassportDBHelper();
-        ListView listView = (ListView) view.findViewById(R.id.listView);
-        PassportBaseAdapter adapter = new PassportBaseAdapter(passportActivity, passportActivity.getHistoryList());
+        listView = (ListView) view.findViewById(R.id.listView);
+        adapter = new PassportBaseAdapter(passportActivity, passportActivity.getHistoryList());
         listView.setAdapter(adapter);
 
         return view;
@@ -45,6 +50,15 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
             case R.id.btnClearHistory:
                 passportDBHelper.clear();
                 passportActivity.clearHistoryList();
+                adapter.clearList();
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
+                listView.refreshDrawableState();
         }
+    }
+
+    public void resetListView(ArrayList<HashMap<String, String>> list) {
+        adapter = new PassportBaseAdapter(passportActivity, list);
+        listView.refreshDrawableState();
     }
 }

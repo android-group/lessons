@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Проверка паспорта на ФМС</string>
+    <string name="app_name">Проверка паспорта</string>
     <string name="check">Проверить</string>
     <string name="number">Номер</string>
     <string name="series">Серия</string>
@@ -11,7 +11,10 @@
     <string name="series_label">Серия</string>
     <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
     <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС.</string>
+    <string name="captcha_not_valid_msg">Код подтверждения не верный.</string>
+    <string name="connection_problem">Ошибка подключения. Подключите интернет и повторите проверку.</string>
     <string name="validation_error_msg">Введены некорректные данные.</string>
+    <string name="series_validation_error_msg">Некорректная серия паспорта.</string>
     <string name="next">Далее</string>
     <string name="clear">Очистить</string>
     <string name="back">Назад</string>
@@ -22,5 +25,9 @@
     <string name="btn_licence">Проверка действительности лицензий на трудоустройство граждан Российской Федерации за пределами территории Российской Федерации</string>
     <string name="btn_check">Проверить</string>
     <string name="clear_history">Очистить историю</string>
+    <string name="btn_new_request">Новый запрос</string>
+    <string name="btn_history">История запросов</string>
+    <string name="очистить">trash</string>
+    <string name="Очистить">trash</string>
 
 </resources>
