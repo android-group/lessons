@@ -9,15 +9,12 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Toolbar toolbar;
     private Button btnPassportRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        /*setSupportActionBar(toolbar);*/
 
         btnPassportRequest = (Button) findViewById(R.id.btnCheckPassport);
         btnPassportRequest.setOnClickListener(this);
