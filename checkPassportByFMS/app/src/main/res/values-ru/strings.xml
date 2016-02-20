@@ -25,7 +25,7 @@
     <string name="btn_check_passport">Проверка паспорта</string>
     <string name="btn_history">История запросов</string>
     <string name="btn_licence">Проверка действительности лицензий на трудоустройство граждан Российской Федерации за пределами территории Российской Федерации</string>
-    <string name="captcha_not_valid_msg">Код подтверждения не верный.</string>
+    <string name="captcha_not_valid_msg">Неверный код подтверждения.</string>
     <string name="clear_history">Очистить историю</string>
     <string name="newRequest">Новый запрос</string>
     <string name="series_validation_error_msg">Некорректная серия паспорта.</string>

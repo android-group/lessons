@@ -11,7 +11,7 @@
     <string name="series_label">Серия</string>
     <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
     <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС.</string>
-    <string name="captcha_not_valid_msg">Код подтверждения не верный.</string>
+    <string name="captcha_not_valid_msg">Неверный код подтверждения.</string>
     <string name="connection_problem">Ошибка подключения. Подключите интернет и повторите проверку.</string>
     <string name="validation_error_msg">Введены некорректные данные.</string>
     <string name="series_validation_error_msg">Некорректная серия паспорта.</string>
