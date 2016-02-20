@@ -1,9 +1,9 @@
 package com.joinlang.yury.checkpassportbyfms.model;
 
 public enum TypicalResponse {
-    NOT_VALID("Не действителен", false, "Истек срок действия", "Не действителен (ИСТЕК СРОК ДЕЙСТВИЯ)"),
-    VALID("Действителен", true, "", "Cреди недействительных не значится"),
-    CAPTCHA_NOT_VALID("Код подтверждения не верный", true, "", "Код подтверждения не верный");
+    NOT_VALID("Недействителен (ИСТЕК СРОК ДЕЙСТВИЯ)", false, "Истек срок действия", "Не действителен (ИСТЕК СРОК ДЕЙСТВИЯ)"),
+    VALID("Cреди недействительных не значится.", true, "", "Cреди недействительных не значится"),
+    CAPTCHA_NOT_VALID("Неверный код подтверждения", true, "", "Код подтверждения не верный");
 
     private final String result;
     private final boolean isValid;
