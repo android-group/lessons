@@ -32,6 +32,13 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        // TODO сохранение в Bundle приметивов
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         view.findViewById(R.id.btnClearHistory).setOnClickListener(this);
