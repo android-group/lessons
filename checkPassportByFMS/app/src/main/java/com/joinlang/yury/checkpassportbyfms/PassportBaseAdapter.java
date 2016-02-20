@@ -42,7 +42,9 @@ public class PassportBaseAdapter extends BaseAdapter {
         return 0;
     }
 
-
+    /* @TODO
+        Card View v.4 support
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
