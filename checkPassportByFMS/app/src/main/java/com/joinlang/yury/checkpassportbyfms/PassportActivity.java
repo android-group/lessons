@@ -43,6 +43,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     private Passport passport;
     private PassportDBHelper passportDBHelper;
     private SmevService smevService;
+    private TypicalResponse typicalResponse;
 
     public PassportDBHelper getPassportDBHelper() {
         if (passportDBHelper == null) {
@@ -87,8 +88,8 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         historyFragment = new HistoryFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(passportFragment, "Проверка паспорта");
-        adapter.addFragment(historyFragment, "История");
+        adapter.addFragment(passportFragment, getString(R.string.newRequest));
+        adapter.addFragment(historyFragment, getString(R.string.history));
 
         viewPager.setAdapter(adapter);
     }
@@ -206,12 +207,16 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         this.historyList = null;
     }
 
-    @NonNull
-    private HashMap<String, String> getHashMapByPassport(Passport passport) {
+    private HashMap<String, String> getHashMapByPassport(@NonNull Passport passport) {
         HashMap<String, String> passportHashMap = new HashMap<>();
         passportHashMap.put(PassportDBHelper.COLUMN_SERIES, passport.getSeries());
         passportHashMap.put(PassportDBHelper.COLUMN_NUMBER, passport.getNumber());
-        passportHashMap.put(PassportDBHelper.COLUMN_RESULT, passport.getTypicalResponse().getResult());
+
+        typicalResponse = passport.getTypicalResponse();
+        if (typicalResponse != null) {
+            passportHashMap.put(PassportDBHelper.COLUMN_RESULT,
+                    typicalResponse.getResult());
+        }
         return passportHashMap;
     }
 

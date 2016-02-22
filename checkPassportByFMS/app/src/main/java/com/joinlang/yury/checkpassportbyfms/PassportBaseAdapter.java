@@ -63,8 +63,8 @@ public class PassportBaseAdapter extends BaseAdapter {
 
         String resultStr = map.get(PassportDBHelper.COLUMN_RESULT);
         result.setText(resultStr);
-        
-        if(TypicalResponse.findByResult(resultStr).isValid()) {
+
+        if (TypicalResponse.findByResult(resultStr).isValid()) {
             result.setTextColor(Color.GREEN);
         } else {
             result.setTextColor(Color.RED);

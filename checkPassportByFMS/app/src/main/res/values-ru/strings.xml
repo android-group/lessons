@@ -31,4 +31,6 @@
     <string name="series_validation_error_msg">Некорректная серия паспорта.</string>
     <string name="title_main_activity">Сервисы ФМС</string>
     <string name="title_passport_activity">Проверка паспорта</string>
+    <string name="history">История</string>
+    <string name="request">Запрос</string>
 </resources>
