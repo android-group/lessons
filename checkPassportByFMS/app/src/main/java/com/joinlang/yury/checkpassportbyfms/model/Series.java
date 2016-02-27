@@ -6,6 +6,8 @@ public class Series {
 
     private OKATO okato;
     private int year;
+    private boolean isOkatoValid;
+    private boolean isYearValid;
 
     public int getYear() {
         return year;
@@ -14,9 +16,6 @@ public class Series {
     public void setYear(int year) {
         this.year = year;
     }
-
-    private boolean isOkatoValid;
-    private boolean isYearValid;
 
     public boolean isValid() {
         return isOkatoValid() && isYearValid();
@@ -42,12 +41,12 @@ public class Series {
         return okato;
     }
 
-    public void setOkato(OKATO okato) {
-        this.okato = okato;
-    }
-
     public void setOkato(String strOKATO) {
         setOkato(OKATO.findByNumber(strOKATO));
         setIsOkatoValid(getOkato() != null);
+    }
+
+    public void setOkato(OKATO okato) {
+        this.okato = okato;
     }
 }

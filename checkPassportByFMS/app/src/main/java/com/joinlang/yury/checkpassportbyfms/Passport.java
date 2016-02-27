@@ -10,12 +10,12 @@ public class Passport {
     private String captcha;
     private String cookies;
 
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
-    }
-
     public String getCookies() {
         return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
     }
 
     public String getCaptcha() {

@@ -5,9 +5,11 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#FFFFFF</color>
-    <color name="colorAccent">#c8e8ff</color>
+    <color name="colorAccent">#51A351</color>
     <color name="tabTextColor">#000000</color>
     <color name="manu_text">#FFFFFF</color>
 
     <color name="btn_menu">#700013</color>
+    <color name="success_result">#51A351</color>
+    <color name="bad_result">#700013</color>
 </resources>

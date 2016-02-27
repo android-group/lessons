@@ -2,7 +2,6 @@ package com.joinlang.yury.checkpassportbyfms;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -21,40 +20,27 @@ import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
 import com.joinlang.yury.checkpassportbyfms.validation.CheckSeriesService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
 public class PassportActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<HashMap<String, String>> historyList;
-    HistoryFragment historyFragment;
-    PassportFragment passportFragment;
-    CaptchaFragment captchaFragment;
-    EditText seriesEditText;
-    EditText numberEditText;
-    ResultFragment resultFragment;
-    CheckSeriesService checkSeriesService = CheckSeriesService.getInstance();
-    TextView okatoTextView;
+    private HistoryFragment historyFragment;
+    private PassportFragment passportFragment;
+    private CaptchaFragment captchaFragment;
+    private EditText seriesEditText;
+    private EditText numberEditText;
+    private ResultFragment resultFragment;
+    private CheckSeriesService checkSeriesService = CheckSeriesService.getInstance();
+    private TextView okatoTextView;
     private ViewPagerAdapter adapter;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     private Passport passport;
-    private PassportDBHelper passportDBHelper;
     private SmevService smevService;
-    private TypicalResponse typicalResponse;
-
-    public PassportDBHelper getPassportDBHelper() {
-        if (passportDBHelper == null) {
-            passportDBHelper = new PassportDBHelper(this);
-        }
-        return passportDBHelper;
-    }
 
     public SmevService getSmevService() {
         if (smevService == null) {
-            smevService = new SmevService(this, passportDBHelper);
+            smevService = new SmevService(this);
         }
         return smevService;
     }
@@ -74,12 +60,11 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passport);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.trash);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -118,21 +103,27 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                         return;
                     }
 
-                    setPassport(getSmevService().request(passport));
+                    /*
+                    * Делаем запрос в СМЭВ
+                    * */
+                    passport = getSmevService().request(passport);
 
+                    /*
+                    * Проверяем ответ
+                    * */
                     if (passport == null || passport.getTypicalResponse() == null ||
                             passport.getTypicalResponse() == TypicalResponse.CAPTCHA_NOT_VALID) {
+                        Toast.makeText(this, getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                         return;
                     } else {
                         showResultDialogFragment();
                     }
 
-                    getHistoryList().add(getHashMapByPassport(passport));
-                    historyFragment.resetListView(getHistoryList());
+                    historyFragment.addToHistoryList(passport);
 
                     clear(seriesEditText, numberEditText, captchaEditText, captchaFragment);
                 } catch (NullPointerException e) {
-                    Log.e("NPE",e.getMessage());
+                    Log.e("NPE", e.getMessage());
                 }
                 break;
             case R.id.btnNewRequest:
@@ -175,9 +166,9 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
 
         Series result = checkSeriesService.getCheckedSeries(seriesEditText.getText().toString());
         if (result.isValid()) {
-            okatoTextView = (TextView) findViewById(R.id.okato);
+            /*okatoTextView = (TextView) findViewById(R.id.okato);
             okatoTextView.setText(result.getOkato().region);
-            okatoTextView.setVisibility(View.VISIBLE);
+            okatoTextView.setVisibility(View.VISIBLE);*/
         } else {
             Toast.makeText(this, getString(R.string.series_validation_error_msg), Toast.LENGTH_LONG).show();
             return;
@@ -191,33 +182,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         numberEditText.setText("");
         captchaEditText.setText("");
         captchaFragment.setCookies("");
-    }
-
-    public ArrayList<HashMap<String, String>> getHistoryList() {
-        if (historyList == null) {
-            historyList = new ArrayList<>();
-            for (Passport passport : passportDBHelper.getAll()) {
-                historyList.add(getHashMapByPassport(passport));
-            }
-        }
-        return historyList;
-    }
-
-    public void clearHistoryList() {
-        this.historyList = null;
-    }
-
-    private HashMap<String, String> getHashMapByPassport(@NonNull Passport passport) {
-        HashMap<String, String> passportHashMap = new HashMap<>();
-        passportHashMap.put(PassportDBHelper.COLUMN_SERIES, passport.getSeries());
-        passportHashMap.put(PassportDBHelper.COLUMN_NUMBER, passport.getNumber());
-
-        typicalResponse = passport.getTypicalResponse();
-        if (typicalResponse != null) {
-            passportHashMap.put(PassportDBHelper.COLUMN_RESULT,
-                    typicalResponse.getResult());
-        }
-        return passportHashMap;
     }
 
     @Override

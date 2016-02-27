@@ -5,22 +5,25 @@
     <string name="series">Серия</string>
     <string name="captcha">Код подтверждения</string>
     <string name="captcha_hint">Код подтверждения</string>
-    <string name="without_internet_msg">Если нет интернета - приложение не работает.</string>
+    <string name="without_internet_msg">Если нет интернета - приложение не работает</string>
     <string name="refresh">Обновить</string>
     <string name="number_label">Номер</string>
     <string name="series_label">Серия</string>
-    <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу.</string>
-    <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС.</string>
-    <string name="captcha_not_valid_msg">Неверный код подтверждения.</string>
-    <string name="connection_problem">Ошибка подключения. Подключите интернет и повторите проверку.</string>
-    <string name="validation_error_msg">Введены некорректные данные.</string>
-    <string name="series_validation_error_msg">Некорректная серия паспорта.</string>
+    <string name="unsuccessful_response">ФМС не дал ответ по вашему запросу</string>
+    <string name="unknown_host_exception_msg">Ошибка при обращении к сервису ФМС</string>
+    <string name="captcha_not_valid_msg">Неверный код подтверждения</string>
+    <string name="connection_problem">Ошибка подключения. Подключите интернет и повторите проверку</string>
+    <string name="validation_error_msg">Введены некорректные данные</string>
+    <string name="series_validation_error_msg">Некорректная серия паспорта</string>
+    <string name="invalid_series">Неверная серия паспорта</string>
+    <string name="passport_info">Паспортные данные</string>
     <string name="next">Далее</string>
     <string name="clear">Очистить</string>
     <string name="back">Назад</string>
     <string name="newRequest">Новый запрос</string>
     <string name="title_main_activity">Сервисы ФМС</string>
     <string name="title_passport_activity">Проверка паспорта</string>
+    <string name="passport">Паспорт</string>
     <string name="btn_check_passport">Проверка паспорта</string>
     <string name="btn_licence">Проверка действительности лицензий на трудоустройство граждан Российской Федерации за пределами территории Российской Федерации</string>
     <string name="btn_check">Проверить</string>
@@ -30,6 +33,22 @@
     <string name="очистить">Очистить</string>
     <string name="Очистить">Очистить</string>
     <string name="request">Запрос</string>
+    <string name="result">Результат</string>
     <string name="history">История</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7157276789419592/2019094667</string>
+    <string name="bannersizes_loadad">Load New Ad</string>
+    <string-array name="bannersizes_largesizes">
+        <item>Banner</item>
+        <item>Large Banner</item>
+        <item>Smart Banner</item>
+        <item>Full Banner</item>
+        <item>Medium Rectangle</item>
+        <item>Leaderboard</item>
+    </string-array>
 
+    <string-array name="bannersizes_smallsizes">
+        <item>Banner</item>
+        <item>Large Banner</item>
+        <item>Smart Banner</item>
+    </string-array>
 </resources>

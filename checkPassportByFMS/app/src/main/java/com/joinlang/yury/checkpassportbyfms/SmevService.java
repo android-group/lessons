@@ -14,17 +14,16 @@ import java.net.URL;
 
 public class SmevService {
 
-    static final String SMEV_URL = "http://services.fms.gov.ru/info-service.htm?sid=2000&form_name=form&DOC_SERIE=%s&DOC_NUMBER=%s&captcha-input=%s";
-    TypicalResponse smevResult;
-    String TAG = "SMEV";
+    private static final String SMEV_URL = "http://services.fms.gov.ru/info-service.htm?sid=2000&form_name=form&DOC_SERIE=%s&DOC_NUMBER=%s&captcha-input=%s";
+    private static final String TAG = "SMEV";
+    private PassportDBHelper passportDBHelper;
+    private PassportActivity activity;
+    private String cookies;
+    private TypicalResponse smevResult;
 
-    PassportDBHelper passportDBHelper;
-    PassportActivity activity;
-    String cookies;
-
-    public SmevService(PassportActivity passportActivity, PassportDBHelper passportDBHelper) {
+    public SmevService(PassportActivity passportActivity) {
         this.activity = passportActivity;
-        this.passportDBHelper = passportDBHelper;
+        this.passportDBHelper = new PassportDBHelper(passportActivity);
     }
 
     public Passport request(Passport passport) {
@@ -76,7 +75,7 @@ public class SmevService {
                 while ((inputLine = in.readLine()) != null) {
                     if (inputLine.contains("По Вашему запросу о действительности паспорта")) {
                         in.close();
-                        return TypicalResponse.findByFullText(inputLine.substring(inputLine.indexOf("«") + 1, inputLine.indexOf("»")).toString());
+                        return TypicalResponse.findByResult(inputLine.substring(inputLine.indexOf("«") + 1, inputLine.indexOf("»")));
                     }
                 }
                 in.close();

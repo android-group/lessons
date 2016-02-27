@@ -1,36 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:weightSum="1"
-        android:layout_marginBottom="90dp"
-        android:background="#f7f4f4">
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"/>
 
+    <RelativeLayout
+        android:id="@+id/header_main_page_clist1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="70dp"
+        >
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_gravity="center_horizontal|top" />
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:dividerHeight="1dp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/emptyElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="Здесь будет отображаться история запросов"
+            android:textColor="#525252"
+            android:textSize="19.0sp" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnClearHistory"
-        android:padding="20dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="@drawable/button_clear"
-        android:text="@string/clear_history"
-        android:textColor="@color/manu_text"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btnClearHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="@dimen/padding_linear_layout"
+            android:layout_marginRight="@dimen/padding_linear_layout"
+            android:background="@drawable/button_clear"
+            android:text="@string/clear_history"
+            android:visibility="gone"
+            android:textColor="@color/manu_text"
+            android:textSize="@dimen/menu_text" />
+    </RelativeLayout>
 
 </FrameLayout>

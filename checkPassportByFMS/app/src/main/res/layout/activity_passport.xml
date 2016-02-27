@@ -8,14 +8,15 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabGravity="center"
         android:background="#5BB75B"
+        app:tabGravity="center"
         app:tabIndicatorColor="#ff8800"
         app:tabSelectedTextColor="#ffffff"
-        app:tabTextColor="#ffffff"/>
+        app:tabTextColor="#ffffff" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

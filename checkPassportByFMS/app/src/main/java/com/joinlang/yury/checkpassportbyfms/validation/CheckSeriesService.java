@@ -11,15 +11,6 @@ public class CheckSeriesService {
         return CheckSeriesServiceHolder.NEW_INSTANCE;
     }
 
-    public Series getCheckedSeries(String strSeries) {
-        Series series = new Series();
-
-        series.setIsYearValid(isYearValid(strSeries.substring(2, 4)));
-        series.setOkato(strSeries.substring(0, 2));
-
-        return series;
-    }
-
     public static boolean isYearValid(String substring) {
         int value = Integer.valueOf(substring);
         int currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
@@ -28,6 +19,15 @@ public class CheckSeriesService {
         boolean isValidSecond = value >= 91 && value <= 99;
 
         return isValidOnePart || isValidSecond;
+    }
+
+    public Series getCheckedSeries(String strSeries) {
+        Series series = new Series();
+
+        series.setIsYearValid(isYearValid(strSeries.substring(2, 4)));
+        series.setOkato(strSeries.substring(0, 2));
+
+        return series;
     }
 
     public static class CheckSeriesServiceHolder {

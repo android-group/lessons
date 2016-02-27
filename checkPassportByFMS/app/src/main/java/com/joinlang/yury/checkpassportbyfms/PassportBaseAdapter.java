@@ -1,7 +1,6 @@
 package com.joinlang.yury.checkpassportbyfms;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,7 @@ public class PassportBaseAdapter extends BaseAdapter {
 
     private List<Map<String, String>> list;
     private Activity activity;
-    private TextView series;
-    private TextView number;
+    private TextView passport;
     private TextView result;
 
     public PassportBaseAdapter(Activity activity, List<Map<String, String>> list) {
@@ -50,26 +48,24 @@ public class PassportBaseAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.history_col_row, null);
+            convertView = inflater.inflate(R.layout.history_col_header, null);
 
-            series = (TextView) convertView.findViewById(R.id.series);
-            number = (TextView) convertView.findViewById(R.id.number);
+            passport = (TextView) convertView.findViewById(R.id.passport);
             result = (TextView) convertView.findViewById(R.id.result);
         }
 
         Map<String, String> map = list.get(position);
-        series.setText(map.get(PassportDBHelper.COLUMN_SERIES));
-        number.setText(map.get(PassportDBHelper.COLUMN_NUMBER));
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(map.get(PassportDBHelper.COLUMN_SERIES));
+        stringBuilder.append(" ");
+        stringBuilder.append(map.get(PassportDBHelper.COLUMN_NUMBER));
+        passport.setText(stringBuilder);
 
         String resultStr = map.get(PassportDBHelper.COLUMN_RESULT);
         result.setText(resultStr);
-
-        if (TypicalResponse.findByResult(resultStr).isValid()) {
-            result.setTextColor(Color.GREEN);
-        } else {
-            result.setTextColor(Color.RED);
+        if(position != 0) {
+            result.setTextColor(TypicalResponse.findByResult(resultStr).getColor(inflater.getContext()));
         }
-
 
         return convertView;
     }

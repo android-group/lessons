@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
 
 public class ResultFragment extends DialogFragment {
 
@@ -23,17 +26,15 @@ public class ResultFragment extends DialogFragment {
                              Bundle savedInstanceState) {
 
         Passport passport = ((PassportActivity) getActivity()).getPassport();
-        getDialog().setTitle("Паспорт: " + passport.toString());
+        getDialog().setTitle(getString(R.string.passport) + ": " + passport.toString());
 
         View view = inflater.inflate(R.layout.fragment_result, container, false);
 
         TextView resultTextView = (TextView) view.findViewById(R.id.result);
-        resultTextView.setText(passport.getTypicalResponse().getResult());
-        if(passport.getTypicalResponse().isValid()) {
-            resultTextView.setTextColor(Color.GREEN);
-        } else {
-            resultTextView.setTextColor(Color.RED);
-        }
+        TypicalResponse typicalResponse = passport.getTypicalResponse();
+        resultTextView.setText(typicalResponse.getDescription());
+        resultTextView.setTextColor(typicalResponse.getColor(inflater.getContext()));
+
         view.findViewById(R.id.btnNewRequest).setOnClickListener(passportActivity);
         return view;
     }
