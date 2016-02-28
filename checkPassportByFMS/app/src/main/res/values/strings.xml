@@ -40,18 +40,8 @@
     <string name="menu_share">Поделиться</string>
     <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ.
         https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
-    <string-array name="bannersizes_largesizes">
-        <item>Banner</item>
-        <item>Large Banner</item>
-        <item>Smart Banner</item>
-        <item>Full Banner</item>
-        <item>Medium Rectangle</item>
-        <item>Leaderboard</item>
-    </string-array>
-
-    <string-array name="bannersizes_smallsizes">
-        <item>Banner</item>
-        <item>Large Banner</item>
-        <item>Smart Banner</item>
-    </string-array>
+    <string name="result_expired">Истек срок действия</string>
+    <string name="result_success">Среди недействительных не значится</string>
+    <string name="result_captcha_invalid">Код подтверждения неверный</string>
+    <string name="result_repeat">Необходимо повторить запрос</string>
 </resources>

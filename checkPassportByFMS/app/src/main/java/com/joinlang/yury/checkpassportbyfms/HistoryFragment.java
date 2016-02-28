@@ -89,7 +89,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         TypicalResponse typicalResponse = passport.getTypicalResponse();
         if (typicalResponse != null) {
             passportHashMap.put(PassportDBHelper.COLUMN_RESULT,
-                    typicalResponse.getDescription());
+                    getString(typicalResponse.getDescription()));
         }
         return passportHashMap;
     }

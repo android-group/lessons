@@ -93,7 +93,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passport);
-        getSupportActionBar().setIcon(R.drawable.trash);
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -171,7 +171,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(this, getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                         return;
                     } else {
-                        String actionResponse = ActionTracker.RESPONSE.name() + " " + passport.getTypicalResponse().getDescription();
+                        String actionResponse = ActionTracker.RESPONSE.name() + " " + getString(passport.getTypicalResponse().getDescription());
                         Log.i(TAG, actionResponse);
                         mTracker.send(new HitBuilders.EventBuilder()
                                 .setCategory(CategoryTracker.CHECK.name())

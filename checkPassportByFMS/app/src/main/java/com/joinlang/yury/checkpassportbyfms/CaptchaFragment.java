@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,7 +92,7 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         getDialog().setTitle(getString(R.string.captcha_hint));
 
-        View view = inflater.inflate(R.layout.fragment_captcha, container, false);
+        View view = inflater.inflate(R.layout.fragment_captcha, container);
 
         Button btnCheck = (Button) view.findViewById(R.id.btnCheck);
         btnCheck.setOnClickListener(passportActivity);

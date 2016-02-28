@@ -3,22 +3,23 @@ package com.joinlang.yury.checkpassportbyfms.model;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
 import com.joinlang.yury.checkpassportbyfms.R;
 
 public enum TypicalResponse {
-    NOT_VALID("Не действителен (ИСТЕК СРОК ДЕЙСТВИЯ)", "Истек срок действия", false),
-    VALID("Cреди недействительных не значится", "Среди недействительных не значится", true),
-    CAPTCHA_NOT_VALID("Неверный код подтверждения", "Код подтверждения не верный", false),
+    NOT_VALID("Не действителен (ИСТЕК СРОК ДЕЙСТВИЯ)", R.string.result_expired, false),
+    VALID("Cреди недействительных не значится", R.string.result_success, true),
+    CAPTCHA_NOT_VALID("Неверный код подтверждения", R.string.result_captcha_invalid, false),
 
-    UNKNOWN("Необходимо повторить запрос", "Необходимо повторить запрос", false);
+    UNKNOWN("Необходимо повторить запрос", R.string.result_repeat, false);
 
     private final String result;
     private final boolean isValid;
-    private final String description;
+    private final @StringRes int description;
 
-    TypicalResponse(String result, String description, boolean isValid) {
+    TypicalResponse(String result, int description, boolean isValid) {
         this.result = result;
         this.description = description;
         this.isValid = isValid;
@@ -30,15 +31,14 @@ public enum TypicalResponse {
         }
 
         for (TypicalResponse typicalResponse : values()) {
-            if (typicalResponse.getResult().equals(result) ||
-                    typicalResponse.getDescription().equals(result)) {
+            if (typicalResponse.getResult().equals(result)) {
                 return typicalResponse;
             }
         }
         return UNKNOWN;
     }
 
-    public String getDescription() {
+    public @StringRes int getDescription() {
         return description;
     }
 
@@ -50,9 +50,7 @@ public enum TypicalResponse {
         return isValid;
     }
 
-    public
-    @ColorInt
-    ColorStateList getColor(Context context) {
+    public @ColorInt ColorStateList getColor(Context context) {
         if (isValid()) {
             return ContextCompat.getColorStateList(context, R.color.success_result);
         } else {

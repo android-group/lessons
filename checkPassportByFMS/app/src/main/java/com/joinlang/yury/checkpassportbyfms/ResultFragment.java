@@ -30,7 +30,7 @@ public class ResultFragment extends DialogFragment {
 
         TextView resultTextView = (TextView) view.findViewById(R.id.result);
         TypicalResponse typicalResponse = passport.getTypicalResponse();
-        resultTextView.setText(typicalResponse.getDescription());
+        resultTextView.setText(getString(passport.getTypicalResponse().getDescription()));
         resultTextView.setTextColor(typicalResponse.getColor(inflater.getContext()));
 
         view.findViewById(R.id.btnNewRequest).setOnClickListener(passportActivity);

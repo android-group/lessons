@@ -33,9 +33,16 @@
     <string name="Очистить">Сміття</string>
     <string name="history">Iсторія</string>
     <string name="request">Запит</string>
-    <string name="banner_ad_unit_id">ca-app-pub-7157276789419592/2019094667</string>
     <string name="passport_info">Паспортные данные</string>
     <string name="passport">Паспорт</string>
     <string name="result">Результат</string>
     <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ. https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
+    <string name="banner_history_ad_unit_id">ca-app-pub-7157276789419592/2272786669</string>
+    <string name="banner_request_ad_unit_id">ca-app-pub-7157276789419592/5086652266</string>
+    <string name="result_captcha_invalid">Код подтверждения не верный</string>
+    <string name="result_expired">Истек срок действия</string>
+    <string name="result_repeat">Необходимо повторить запрос</string>
+    <string name="result_success">Среди недействительных не значится</string>
+    <string name="invalid_series">Неверная серия паспорта</string>
+    <string name="menu_share">Поделиться</string>
 </resources>
