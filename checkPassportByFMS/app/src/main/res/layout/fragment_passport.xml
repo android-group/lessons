@@ -11,20 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"/>
-
-    <!--<TextView
-        android:id="@+id/okato"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_linear_layout"
-        android:layout_marginRight="@dimen/padding_linear_layout"
-        android:background="#f7f4f4"
-        android:gravity="center"
-        android:paddingBottom="@dimen/padding_okato"
-        android:paddingTop="@dimen/padding_okato"
-        android:text="@string/series_label"
-        android:textSize="20dp" />-->
+        ads:adUnitId="@string/banner_request_ad_unit_id"/>
 
     <TextView
         android:layout_width="match_parent"

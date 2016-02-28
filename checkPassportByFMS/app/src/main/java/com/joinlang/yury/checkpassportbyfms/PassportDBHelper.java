@@ -3,7 +3,6 @@ package com.joinlang.yury.checkpassportbyfms;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -54,40 +53,9 @@ public class PassportDBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean update(Integer id, String series, String number, String result) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_SERIES, series);
-        contentValues.put(COLUMN_NUMBER, number);
-        contentValues.put(COLUMN_RESULT, result);
-        db.update(TABLE_NAME, contentValues, COLUMN_ID + " = ? ", new String[]{Integer.toString(id)});
-        return true;
-    }
-
-    public Integer delete(Integer id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME,
-                COLUMN_ID + " = ? ",
-                new String[]{Integer.toString(id)});
-    }
-
     public void clear() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
-    }
-
-    public Cursor getById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery(
-                "select * from " + TABLE_NAME +
-                        " where " + COLUMN_ID + " = " + id + "", null);
-        return res;
-    }
-
-    public int numberOfRows() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_NAME);
-        return numRows;
     }
 
     public AbstractList<Passport> getAll() {
@@ -108,6 +76,4 @@ public class PassportDBHelper extends SQLiteOpenHelper {
         }
         return arrayList;
     }
-
-
 }

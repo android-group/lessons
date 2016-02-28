@@ -34,9 +34,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     private CaptchaFragment captchaFragment;
     private EditText seriesEditText;
     private EditText numberEditText;
-    private ResultFragment resultFragment;
     private CheckSeriesService checkSeriesService = CheckSeriesService.getInstance();
-    //private TextView okatoTextView;
     private ViewPagerAdapter adapter;
 
     private Passport passport;
@@ -102,7 +100,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        // Obtain the shared Tracker instance.
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
@@ -208,7 +205,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
             df.dismiss();
         }
 
-        resultFragment = new ResultFragment();
+        ResultFragment resultFragment = new ResultFragment();
         resultFragment.show(getSupportFragmentManager(), "dlg_result_fragment");
     }
 
@@ -230,11 +227,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         }
 
         Series result = checkSeriesService.getCheckedSeries(seriesEditText.getText().toString());
-        if (result.isValid()) {
-            /*okatoTextView = (TextView) findViewById(R.id.okato);
-            okatoTextView.setText(result.getOkato().region);
-            okatoTextView.setVisibility(View.VISIBLE);*/
-        } else {
+        if (!result.isValid()) {
             Toast.makeText(this, getString(R.string.series_validation_error_msg), Toast.LENGTH_LONG).show();
             return;
         }
@@ -252,12 +245,6 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        /*if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //your code
-        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //your code
-
-        }*/
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

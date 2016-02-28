@@ -55,7 +55,7 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         btnClearHistory = (Button) view.findViewById(R.id.btnClearHistory);
         btnClearHistory.setOnClickListener(this);
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("0F3F98FA63E39D1208D95C0F49C14813").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         AdView mAdView = (AdView) view.findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
 

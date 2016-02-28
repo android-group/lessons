@@ -40,9 +40,6 @@ public class PassportBaseAdapter extends BaseAdapter {
         return 0;
     }
 
-    /* @TODO
-        Card View v.4 support
-     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -63,7 +60,7 @@ public class PassportBaseAdapter extends BaseAdapter {
 
         String resultStr = map.get(PassportDBHelper.COLUMN_RESULT);
         result.setText(resultStr);
-        if(position != 0) {
+        if (position != 0) {
             result.setTextColor(TypicalResponse.findByResult(resultStr).getColor(inflater.getContext()));
         }
 
