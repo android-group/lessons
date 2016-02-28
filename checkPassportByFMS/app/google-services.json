@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_id": "check-passport",
+    "project_number": "111159582849",
+    "name": "Check passport"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111159582849:android:701ea817021a0fc1",
+        "client_id": "android:com.joinlang.yury.checkpassportbyfms",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.joinlang.yury.checkpassportbyfms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-47698668-2"
+          }
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

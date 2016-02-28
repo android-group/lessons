@@ -36,7 +36,9 @@
     <string name="result">Результат</string>
     <string name="history">История</string>
     <string name="banner_ad_unit_id">ca-app-pub-7157276789419592/2019094667</string>
-    <string name="bannersizes_loadad">Load New Ad</string>
+    <string name="menu_share">Поделиться</string>
+    <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ.
+        https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
     <string-array name="bannersizes_largesizes">
         <item>Banner</item>
         <item>Large Banner</item>

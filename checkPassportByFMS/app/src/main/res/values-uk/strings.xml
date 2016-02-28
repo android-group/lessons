@@ -26,11 +26,16 @@
     <string name="connection_problem">Помилка підключення. Підключіть інтернет і повторіть перевірку.</string>
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="newRequest">Новий запит</string>
-    <string name="series_validation_error_msg">Некоректна серія паспорта.</string>
+    <string name="series_validation_error_msg">Некоректна серія паспорта</string>
     <string name="title_main_activity">Сервіси ФМС</string>
     <string name="title_passport_activity">Перевірка паспорта</string>
     <string name="очистить">Сміття</string>
     <string name="Очистить">Сміття</string>
     <string name="history">Iсторія</string>
     <string name="request">Запит</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7157276789419592/2019094667</string>
+    <string name="passport_info">Паспортные данные</string>
+    <string name="passport">Паспорт</string>
+    <string name="result">Результат</string>
+    <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ. https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
 </resources>
