@@ -45,4 +45,5 @@
     <string name="result_success">Среди недействительных не значится</string>
     <string name="invalid_series">Неверная серия паспорта</string>
     <string name="menu_share">Поделиться</string>
+    <string name="history_empty_list">Здесь будет отображаться история запросов</string>
 </resources>

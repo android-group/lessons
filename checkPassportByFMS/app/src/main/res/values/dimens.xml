@@ -16,10 +16,7 @@
     <dimen name="menu_text">14dp</dimen>
     <dimen name="menu_btn_margin_top">15dp</dimen>
 
-
     <dimen name="dialog_title">20sp</dimen>
     <dimen name="dialog_text">20sp</dimen>
     <dimen name="dialog_btn">20sp</dimen>
-
-
 </resources>

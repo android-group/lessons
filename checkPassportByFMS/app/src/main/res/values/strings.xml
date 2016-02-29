@@ -44,4 +44,5 @@
     <string name="result_success">Среди недействительных не значится</string>
     <string name="result_captcha_invalid">Код подтверждения неверный</string>
     <string name="result_repeat">Необходимо повторить запрос</string>
+    <string name="history_empty_list">Здесь будет отображаться история запросов</string>
 </resources>

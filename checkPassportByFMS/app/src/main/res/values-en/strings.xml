@@ -45,4 +45,5 @@
     <string name="result_expired">Has expired</string>
     <string name="invalid_series">Invalid series passports</string>
     <string name="menu_share">Share</string>
+    <string name="history_empty_list">History of queries will be displayed here</string>
 </resources>
