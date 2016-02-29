@@ -1,10 +1,12 @@
 package com.joinlang.yury.checkpassportbyfms;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -90,7 +93,6 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getDialog().setTitle(getString(R.string.captcha_hint));
 
         View view = inflater.inflate(R.layout.fragment_captcha, container);
 
@@ -109,6 +111,16 @@ public class CaptchaFragment extends DialogFragment implements View.OnClickListe
         imm.hideSoftInputFromWindow(captchaEditText.getApplicationWindowToken(), InputMethodManager.SHOW_IMPLICIT);
 
         return view;
+    }
+
+    @Override
+    @NonNull
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
     }
 
     @Override

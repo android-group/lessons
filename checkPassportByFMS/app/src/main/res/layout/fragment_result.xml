@@ -6,8 +6,16 @@
     android:paddingBottom="@dimen/padding_linear_layout"
     android:paddingLeft="@dimen/padding_linear_layout"
     android:paddingRight="@dimen/padding_linear_layout"
-    android:paddingTop="@dimen/padding_linear_layout"
     android:weightSum="1">
+
+    <TextView
+        android:id="@+id/result_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:theme="@style/Widget.AppCompat.EditText"
+        android:textSize="@dimen/dialog_title"
+        android:text="@string/captcha_hint"/>
 
     <TextView
         android:id="@+id/result"
@@ -15,9 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:paddingTop="@dimen/padding_linear_layout"
         android:paddingBottom="20dp"
         android:text=""
-        android:textSize="24dp" />
+        android:textSize="@dimen/dialog_text" />
 
     <Button
         android:id="@+id/btnNewRequest"
@@ -28,5 +37,5 @@
         android:paddingTop="10dp"
         android:text="@string/btn_new_request"
         android:textColor="@color/manu_text"
-        android:textSize="20dp" />
+        android:textSize="@dimen/dialog_btn" />
 </LinearLayout>

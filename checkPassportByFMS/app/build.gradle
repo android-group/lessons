@@ -8,17 +8,19 @@ android {
         applicationId "com.joinlang.yury.checkpassportbyfms"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.4"
+        versionCode 1
+        versionName "1.0"
     }
+
     signingConfigs {
         release {
-            storeFile file("D://Users/user/AndroidStudioProjects/lessons/checkPassportByFMS/app/keystore.jks")
+            storeFile file("C:\\Users\\andre\\StudioProjects\\keystore.jks")
             storePassword "6305864750*Cc"
             keyAlias "AndroidKey"
             keyPassword "6305864750*Cc"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -31,10 +33,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
 
     // tests
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
@@ -44,4 +42,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
