@@ -12,10 +12,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("C:\\Users\\andre\\StudioProjects\\keystore.jks")
-            storePassword "6305864750*Cc"
-            keyAlias "AndroidKey"
-            keyPassword "6305864750*Cc"
+            /*storeFile file("storeFile")
+            storePassword "storePassword"
+            keyAlias "keyAlias"
+            keyPassword "keyPassword"*/
         }
     }
     buildTypes {
