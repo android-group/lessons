@@ -37,8 +37,8 @@
     <string name="passport">Паспорт</string>
     <string name="result">Результат</string>
     <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ. https://play.google.com/store/apps/details?id=ru.android_studio.check_passport</string>
-    <string name="banner_history_ad_unit_id">ca-app-pub-7157276789419592/2272786669</string>
-    <string name="banner_request_ad_unit_id">ca-app-pub-7157276789419592/5086652266</string>
+    <string name="banner_history_ad_unit_id">ca-app-pub-7157276789419592/4252060668</string>
+    <string name="banner_request_ad_unit_id">ca-app-pub-7157276789419592/2775327469</string>
     <string name="result_captcha_invalid">Код подтверждения не верный</string>
     <string name="result_expired">Истек срок действия</string>
     <string name="result_repeat">Необходимо повторить запрос</string>
