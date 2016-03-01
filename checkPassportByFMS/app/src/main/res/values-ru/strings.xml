@@ -34,7 +34,7 @@
     <string name="history">История</string>
     <string name="request">Запрос</string>
     <string name="menu_share">Поделиться</string>
-    <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ. https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
+    <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ. https://play.google.com/store/apps/details?id=ru.android_studio.check_passport</string>
     <string name="result">Результат</string>
     <string name="passport">Паспорт</string>
     <string name="passport_info">Паспортные данные</string>

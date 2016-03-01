@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms.validation;
+package ru.android_studio.check_passport.validation;
 
 // Общероссийский классификатор административно-территориального деления объектов
 public enum OKATO {

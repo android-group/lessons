@@ -39,7 +39,7 @@
     <string name="banner_history_ad_unit_id">ca-app-pub-7157276789419592/2272786669</string>
     <string name="menu_share">Поделиться</string>
     <string name="share_msg">Проверка паспорта через Федеральную миграционную службу РФ.
-        https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
+        https://play.google.com/store/apps/details?id=ru.android_studio.check_passport</string>
     <string name="result_expired">Истек срок действия</string>
     <string name="result_success">Среди недействительных не значится</string>
     <string name="result_captcha_invalid">Код подтверждения неверный</string>

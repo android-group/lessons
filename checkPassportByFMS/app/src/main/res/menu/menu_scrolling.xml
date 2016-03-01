@@ -1,4 +1,4 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.joinlang.yury.checkpassportbyfms.ScrollingActivity">
+    tools:context="ru.android_studio.check_passport.ScrollingActivity">
 
 </menu>

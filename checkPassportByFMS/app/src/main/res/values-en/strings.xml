@@ -33,7 +33,7 @@
     <string name="captcha_not_valid_msg">Captcha is not valid</string>
     <string name="history">History</string>
     <string name="request">Request</string>
-    <string name="share_msg">This application allows you to determine whether a passport valid for the territory of the Russian Federation.  https://play.google.com/store/apps/details?id=com.joinlang.yury.checkpassportbyfms</string>
+    <string name="share_msg">This application allows you to determine whether a passport valid for the territory of the Russian Federation.  https://play.google.com/store/apps/details?id=ru.android_studio.check_passport</string>
     <string name="result">Result</string>
     <string name="passport">Passport</string>
     <string name="passport_info">Passport number</string>

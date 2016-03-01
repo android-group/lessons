@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;

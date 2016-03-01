@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import ru.android_studio.check_passport.model.TypicalResponse;
 
 public class ResultFragment extends DialogFragment {
 

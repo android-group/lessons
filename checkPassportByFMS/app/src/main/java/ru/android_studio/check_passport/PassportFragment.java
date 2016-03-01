@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.content.Context;
 import android.os.Bundle;

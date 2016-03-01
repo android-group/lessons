@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import ru.android_studio.check_passport.model.TypicalResponse;
 
 import java.util.List;
 import java.util.Map;
