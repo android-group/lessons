@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search-engine xmlns:android="http://schemas.android.com/apk/res/android">
+  <noindex uri="http://android-studio.ru/hidden_uri"/>
+  <noindex uriPrefix="http://android-studio.ru/hidden_prefix"/>
+  <noindex uri="android-studio://hidden_path"/>
+  <noindex uriPrefix="android-studio://hidden_prefix"/>
+</search-engine>
