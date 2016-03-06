@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -121,38 +123,23 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
 
         mClient = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-
-        Intent intent = this.getIntent();
         Uri referrerUri = this.getReferrer();
         if (referrerUri != null) {
             if (referrerUri.getScheme().equals("http") || referrerUri.getScheme().equals("https")) {
-                // App was opened from a browser
-                String host = referrerUri.getHost();
-                // host will contain the host path (e.g. www.google.com)
-
-                // Add analytics code below to track this click from web Search
                 Log.i(TAG, CategoryTracker.REFERRER.name());
                 mTracker.send(new HitBuilders.EventBuilder()
                         .setCategory(CategoryTracker.REFERRER.name())
                         .setAction(ActionTracker.CLICK_FROM_WEB_SEARCH.name()).build());
 
             } else if (referrerUri.getScheme().equals("android-app")) {
-                // App was opened from another app
                 AndroidAppUri appUri = AndroidAppUri.newAndroidAppUri(referrerUri);
                 String referrerPackage = appUri.getPackageName();
                 if ("com.google.android.googlequicksearchbox".equals(referrerPackage)) {
-                    // App was opened from the Google app
-                    String host = appUri.getDeepLinkUri().getHost();
-                    // host will contain the host path (e.g. www.google.com)
-
-                    // Add analytics code below to track this click from the Google app
                     Log.i(TAG, CategoryTracker.REFERRER.name());
                     mTracker.send(new HitBuilders.EventBuilder()
                             .setCategory(CategoryTracker.REFERRER.name())
                             .setAction(ActionTracker.CLICK_FROM_GOOGLE_APP.name()).build());
 
-                } else if ("com.google.appcrawler".equals(referrerPackage)) {
-                    // Make sure this is not being counted as part of app usage
                 }
             }
         }
@@ -223,6 +210,32 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(passportFragment, getString(R.string.newRequest));
         adapter.addFragment(historyFragment, getString(R.string.history));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    );
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                    );
+                    if (getCurrentFocus() != null) {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         viewPager.setAdapter(adapter);
     }
