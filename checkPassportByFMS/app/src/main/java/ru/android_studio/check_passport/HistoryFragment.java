@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import ru.android_studio.check_passport.model.TypicalResponse;
 
 import java.util.AbstractList;
 import java.util.ArrayList;

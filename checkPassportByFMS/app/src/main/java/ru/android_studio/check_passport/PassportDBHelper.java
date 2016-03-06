@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import ru.android_studio.check_passport.model.TypicalResponse;
 
 import java.util.AbstractList;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
+import ru.android_studio.check_passport.model.TypicalResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;

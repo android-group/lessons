@@ -1,6 +1,6 @@
-package com.joinlang.yury.checkpassportbyfms.model;
+package ru.android_studio.check_passport.model;
 
-import com.joinlang.yury.checkpassportbyfms.validation.OKATO;
+import ru.android_studio.check_passport.validation.OKATO;
 
 public class Series {
 

@@ -8,10 +8,10 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:111159582849:android:701ea817021a0fc1",
-        "client_id": "android:com.joinlang.yury.checkpassportbyfms",
+        "client_id": "android:ru.android_studio.check_passport",
         "client_type": 1,
         "android_client_info": {
-          "package_name": "com.joinlang.yury.checkpassportbyfms"
+          "package_name": "ru.android_studio.check_passport"
         }
       },
       "oauth_client": [],

@@ -1,6 +1,6 @@
-package com.joinlang.yury.checkpassportbyfms.validation;
+package ru.android_studio.check_passport.validation;
 
-import com.joinlang.yury.checkpassportbyfms.model.Series;
+import ru.android_studio.check_passport.model.Series;
 
 import java.util.Calendar;
 

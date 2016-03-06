@@ -1,4 +1,4 @@
-package com.joinlang.yury.checkpassportbyfms;
+package ru.android_studio.check_passport;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -28,9 +28,9 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AndroidAppUri;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.joinlang.yury.checkpassportbyfms.model.Series;
-import com.joinlang.yury.checkpassportbyfms.model.TypicalResponse;
-import com.joinlang.yury.checkpassportbyfms.validation.CheckSeriesService;
+import ru.android_studio.check_passport.model.Series;
+import ru.android_studio.check_passport.model.TypicalResponse;
+import ru.android_studio.check_passport.validation.CheckSeriesService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class PassportActivity extends AppCompatActivity implements View.OnClickL
     private CheckSeriesService checkSeriesService = CheckSeriesService.getInstance();
     private ViewPagerAdapter adapter;
 
-    static final Uri APP_URI = Uri.parse("android-app://com.joinlang.yury.checkpassportbyfms/http/android-studio.ru/app");
+    static final Uri APP_URI = Uri.parse("android-app://ru.android_studio.check_passport/http/android-studio.ru/app");
     static final Uri WEB_URL = Uri.parse("http://android-studio.ru/app/");
     private GoogleApiClient mClient;
 
