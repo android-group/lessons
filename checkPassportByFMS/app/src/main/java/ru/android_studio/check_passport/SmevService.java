@@ -47,7 +47,7 @@ public class SmevService {
             return null;
         }
 
-        if (smevResult == TypicalResponse.NOT_VALID || smevResult == TypicalResponse.VALID) {
+        if (smevResult == TypicalResponse.NOT_VALID || smevResult == TypicalResponse.VALID_1 || smevResult == TypicalResponse.VALID_2) {
             passportDBHelper.insert(series, number, smevResult.getResult());
         }
 

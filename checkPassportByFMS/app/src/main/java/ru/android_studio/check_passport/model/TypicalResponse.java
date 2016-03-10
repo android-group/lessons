@@ -8,7 +8,8 @@ import android.support.v4.content.ContextCompat;
 
 public enum TypicalResponse {
     NOT_VALID("Не действителен (ИСТЕК СРОК ДЕЙСТВИЯ)", ru.android_studio.check_passport.R.string.result_expired, false),
-    VALID("Cреди недействительных не значится", ru.android_studio.check_passport.R.string.result_success, true),
+    VALID_1("Cреди недействительных не значится", ru.android_studio.check_passport.R.string.result_success, true),
+    VALID_2("Среди недействительных не значится", ru.android_studio.check_passport.R.string.result_success, true),
     CAPTCHA_NOT_VALID("Неверный код подтверждения", ru.android_studio.check_passport.R.string.result_captcha_invalid, false),
 
     UNKNOWN("Необходимо повторить запрос", ru.android_studio.check_passport.R.string.result_repeat, false);
